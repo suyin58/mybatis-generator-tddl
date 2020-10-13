@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>org.example</groupId>
+    <groupId>org.dingtalk</groupId>
     <artifactId>generator-dao</artifactId>
     <version>1.0-SNAPSHOT</version>
     <description>用于存储gui执行的页面保存数据，便于用户存储多个项目的不同配置</description>

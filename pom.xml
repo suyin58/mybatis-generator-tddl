@@ -20,13 +20,27 @@
     </properties>
 
     <modules>
-        <module>generator-core</module>
         <module>generator-dao</module>
         <module>generator-gui</module>
+        <module>generator-plugin</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.5.2</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <scope>provided</scope>
+                <version>1.18.6</version>
+            </dependency>
 
             <!-- assert -->
             <dependency>
