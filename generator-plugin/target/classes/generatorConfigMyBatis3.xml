@@ -5,7 +5,9 @@
 
 <generatorConfiguration>
 
+    <!--defaultModelType="flat": 不生成复合主键对象-->
     <context id="generatorTables" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!--是否支持合并-->
         <property name="mergeable" value="false"/>
 
         <plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">
