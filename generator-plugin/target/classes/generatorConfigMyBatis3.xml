@@ -26,12 +26,20 @@
         </plugin>
 
         <!-- 自定义插件开始 -->
+        <!-- lombok 插件 -->
         <plugin type="com.dingtalk.generator.plugins.LombokPlugin">
             <property name="data" value="true"/>
             <property name="builder" value="true"/>
             <property name="allArgsConstructor" value="true"/>
             <property name="noArgsConstructor" value="true"/>
             <property name="toString" value="true"/>
+        </plugin>
+        <!-- 自定义unique key操作插件 -->
+        <plugin type="com.dingtalk.generator.plugins.SelectByUniqueKeyPlugin">
+        </plugin>
+        <plugin type="com.dingtalk.generator.plugins.UpdateByUniqueKeySelectivePlugin">
+        </plugin>
+        <plugin type="com.dingtalk.generator.plugins.DeleteByUniqueKeyPlugin">
         </plugin>
         <!-- 自定义插件结束 -->
 
@@ -63,7 +71,7 @@
         </javaTypeResolver>
 
         <!-- javaModelGenerator是模型的生成信息，这里将指定这些Java model类的生成路径； -->
-        <javaModelGenerator targetPackage="com.dingtalk.demo.domain.access"
+        <javaModelGenerator targetPackage="com.dingtalk.demo.domain"
                             targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
@@ -73,22 +81,25 @@
 
 
         <!-- sqlMapGenerator是mybatis 的sqlMapper XML文件的生成信息，包括生成路径等；   先生成xml，在生成java-->
-        <sqlMapGenerator targetPackage="com.dingtalk.demo.dao.access"
+        <sqlMapGenerator targetPackage="com.dingtalk.demo.dao"
                          targetProject="src/main/resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
         <!-- javaClientGenerator是应用接口的生成信息； -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.dingtalk.demo.dao.access"
+                             targetPackage="com.dingtalk.demo.dao"
                              targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
 
         <!-- table是用户指定的被生成相关信息的表，它必须在指定的jdbc连接中已经被建立。可以多个 -->
-        <table tableName="chat_group_mapping" domainObjectName="ChatGroupMapping"
-        ></table>
+        <table tableName="table_one_unique_key" domainObjectName="TableOneUniqueKey">
+        </table>
+        <table tableName="table_two_unique_key" domainObjectName="TableTwoUniqueKey">
+            <property name="uniqueKey" value="uk_org_cid"/>
+        </table>
         <!--
         <table tableName="chat_group_mapping" domainObjectName="ChatGroupMapping"
                enableDeleteByPrimaryKey="false" enableUpdateByPrimaryKey="false"

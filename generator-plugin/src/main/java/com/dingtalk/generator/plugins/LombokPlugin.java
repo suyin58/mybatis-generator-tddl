@@ -18,7 +18,7 @@ import java.util.Properties;
  * Lombok
  * @author suyin
  */
-public class LombokPlugin extends PluginAdapter {
+public class LombokPlugin extends BasePlugin {
     @Override
     public boolean validate(List<String> warnings) {
         return true;
