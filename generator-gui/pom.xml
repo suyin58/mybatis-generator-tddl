@@ -6,13 +6,13 @@
     <parent>
         <groupId>com.dingtalk.mybatis</groupId>
         <artifactId>mybatis-generator-tddl</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.dingtalk.mybatis</groupId>
     <artifactId>generator-gui</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <description>界面配置工具</description>
 
 
