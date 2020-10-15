@@ -33,4 +33,6 @@ public interface TableTwoUniqueKeyMapper {
     int updateByUniqueKeySelective(TableTwoUniqueKey record);
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("cid") String cid);
+
+    int batchInsert(@Param("list") List<TableTwoUniqueKey> list);
 }

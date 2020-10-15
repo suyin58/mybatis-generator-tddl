@@ -16,20 +16,28 @@
 
 package com.dingtalk.generator.plugins.util;
 
+import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
+import org.mybatis.generator.api.dom.OutputUtilities;
 import org.mybatis.generator.api.dom.xml.Attribute;
+import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.VisitableElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
+import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * ---------------------------------------------------------------------------
  * Xml 节点生成工具
+ *
+ * @author suyin
  * @see org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator
  * ---------------------------------------------------------------------------
- * @author suyin
  */
 public class XmlElementGeneratorTools {
 
@@ -61,6 +69,7 @@ public class XmlElementGeneratorTools {
 
     /**
      * 在最佳位置添加节点
+     *
      * @param rootElement
      * @param element
      */
@@ -106,8 +115,10 @@ public class XmlElementGeneratorTools {
             }
         }
     }
+
     /**
      * 找出节点ID值
+     *
      * @param element
      * @return
      */
@@ -119,4 +130,108 @@ public class XmlElementGeneratorTools {
         }
         return null;
     }
+
+    /**
+     * 生成keys Ele
+     *
+     * @param columns
+     * @param bracket 是否需要括号()
+     * @return
+     */
+    public static List<VisitableElement> generateKeys(List<IntrospectedColumn> columns, boolean bracket) {
+        return generateCommColumns(columns, null, bracket, 1);
+    }
+
+
+    /**
+     * 通用遍历columns
+     *
+     * @param columns
+     * @param prefix
+     * @param bracket 是否需要括号()
+     * @param type    1:key,2:value,3:set
+     * @return
+     */
+    private static List<VisitableElement> generateCommColumns(List<IntrospectedColumn> columns, String prefix, boolean bracket, int type) {
+        return generateCommColumns(columns, prefix, bracket, type, false);
+    }
+
+    /**
+     * 通用遍历columns
+     *
+     * @param columns
+     * @param prefix
+     * @param bracket 是否需要括号()
+     * @param type    1:key,2:value,3:set
+     * @param upsert
+     * @return
+     */
+    private static List<VisitableElement> generateCommColumns(List<IntrospectedColumn> columns, String prefix, boolean bracket, int type, boolean upsert) {
+        List<VisitableElement> list = new ArrayList<>();
+
+
+        StringBuilder sb = new StringBuilder(bracket ? "(" : "");
+        Iterator<IntrospectedColumn> columnIterator = columns.iterator();
+        while (columnIterator.hasNext()) {
+            IntrospectedColumn introspectedColumn = columnIterator.next();
+
+            switch (type) {
+                case 3:
+                    sb.append(MyBatis3FormattingUtilities.getEscapedColumnName(introspectedColumn));
+                    sb.append(" = ");
+                    sb.append(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn, prefix));
+                    break;
+                case 2:
+                    sb.append(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn, prefix));
+                    break;
+                case 1:
+                    sb.append(MyBatis3FormattingUtilities.getEscapedColumnName(introspectedColumn));
+                    break;
+            }
+
+            if (columnIterator.hasNext()) {
+                sb.append(", ");
+            }
+
+            // 保持和官方一致 80 进行换行
+            if (type == 1 || type == 2) {
+                if (sb.length() > 80) {
+                    list.add(new TextElement(sb.toString()));
+                    sb.setLength(0);
+                    OutputUtilities.xmlIndent(sb, 1);
+                }
+            } else {
+                list.add(new TextElement(sb.toString()));
+                sb.setLength(0);
+            }
+        }
+        if (sb.length() > 0 || bracket) {
+            list.add(new TextElement(sb.append(bracket ? ")" : "").toString()));
+        }
+
+        return list;
+    }
+
+
+
+    /**
+     * 生成values Ele
+     * @param columns
+     * @param prefix
+     * @return
+     */
+    public static List<VisitableElement> generateValues(List<IntrospectedColumn> columns, String prefix) {
+        return generateValues(columns, prefix, true);
+    }
+    /**
+     * 生成values Ele
+     * @param columns
+     * @param prefix
+     * @param bracket
+     * @return
+     */
+    public static List<VisitableElement> generateValues(List<IntrospectedColumn> columns, String prefix, boolean bracket) {
+        return generateCommColumns(columns, prefix, bracket, 2);
+    }
+
 }

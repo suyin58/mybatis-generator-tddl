@@ -40,7 +40,6 @@ public class BasePlugin extends PluginAdapter {
      */
     List<IntrospectedColumn> uniqueKey;
 
-    IntrospectedColumn autoIncrementColumn;
 
 
     @Override
@@ -54,8 +53,6 @@ public class BasePlugin extends PluginAdapter {
         this.uks = null;
         try {
             initUniqueKey(introspectedTable);
-
-            initAutoIncrement(introspectedTable);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,27 +65,8 @@ public class BasePlugin extends PluginAdapter {
             this.uniqueKey = (List<IntrospectedColumn>) uk;
         }
 
-        Object autoIncrementColumn = introspectedTable.getAttribute(PluginConstants.TABLE_COLUMN_AUTO_INCREMENT);
-        if(null != autoIncrementColumn){
-            this.autoIncrementColumn = (IntrospectedColumn)autoIncrementColumn;
-        }
     }
 
-    /**
-     * 获取automentIncrement字段
-     * @param it
-     * @throws SQLException
-     */
-    private void initAutoIncrement(IntrospectedTable it) throws SQLException{
-        TableConfiguration tc = it.getTableConfiguration();
-        List<IntrospectedColumn> columns = it.getAllColumns();
-        Optional<IntrospectedColumn> incrementCol =
-                columns.stream().filter(item -> item.isAutoIncrement()).findFirst();
-        if(incrementCol.isPresent()){
-            it.setAttribute(PluginConstants.TABLE_COLUMN_AUTO_INCREMENT,incrementCol.get());
-        }
-       
-    }
     /**
      * 增加unique key 特殊属性
      *

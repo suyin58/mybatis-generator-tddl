@@ -41,6 +41,9 @@
         </plugin>
         <plugin type="com.dingtalk.generator.plugins.DeleteByUniqueKeyPlugin">
         </plugin>
+
+        <plugin type="com.dingtalk.generator.plugins.BatchInsertPlugin">
+        </plugin>
         <!-- 自定义插件结束 -->
 
         <!--自定义注释开始 -->
@@ -100,6 +103,7 @@
         <table tableName="table_two_unique_key" domainObjectName="TableTwoUniqueKey">
             <property name="uniqueKey" value="uk_org_cid"/>
         </table>
+        <table tableName="table_with_identify" domainObjectName="TableWithIdentify"></table>
         <!--
         <table tableName="chat_group_mapping" domainObjectName="ChatGroupMapping"
                enableDeleteByPrimaryKey="false" enableUpdateByPrimaryKey="false"

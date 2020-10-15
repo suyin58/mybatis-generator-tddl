@@ -14,7 +14,6 @@ import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
@@ -29,13 +28,6 @@ public class SelectByUniqueKeyPlugin extends BasePlugin {
      * Mapper.java 方法名
      */
     public static final String METHOD_SELECT_BY_UNIQUE_KEY = "selectByUniqueKey";
-
-
-    @Override
-    public void initialized(IntrospectedTable introspectedTable) {
-        super.initialized(introspectedTable);
-    }
-
 
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {

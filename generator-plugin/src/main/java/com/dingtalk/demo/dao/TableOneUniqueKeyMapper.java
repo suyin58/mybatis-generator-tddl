@@ -33,4 +33,6 @@ public interface TableOneUniqueKeyMapper {
     int updateByUniqueKeySelective(TableOneUniqueKey record);
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
+
+    int batchInsert(@Param("list") List<TableOneUniqueKey> list);
 }

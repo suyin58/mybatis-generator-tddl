@@ -30,12 +30,6 @@ public class DeleteByUniqueKeyPlugin extends BasePlugin {
     public static final String METHOD_DELETE_BY_UNIQUE_KEY = "deleteByUniqueKey";
 
 
-
-    @Override
-    public void initialized(IntrospectedTable introspectedTable) {
-        super.initialized(introspectedTable);
-    }
-
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
         if(null == uniqueKey || uniqueKey.size() == 0){

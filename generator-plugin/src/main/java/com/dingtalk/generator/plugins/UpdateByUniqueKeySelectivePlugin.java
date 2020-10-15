@@ -32,12 +32,6 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
 
 
     @Override
-    public void initialized(IntrospectedTable introspectedTable) {
-        super.initialized(introspectedTable);
-    }
-
-
-    @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
         if(null == uniqueKey || uniqueKey.size() == 0){
             System.err.println("generator updateByUniqueKeySelective break ,cause by no unique can be found");
