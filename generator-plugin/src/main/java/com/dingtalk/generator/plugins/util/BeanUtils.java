@@ -1,7 +1,5 @@
 package com.dingtalk.generator.plugins.util;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.VisitableElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;

@@ -2,7 +2,6 @@ package com.dingtalk.generator.plugins;
 
 import com.dingtalk.generator.plugins.util.JavaElementGeneratorTools;
 import com.dingtalk.generator.plugins.util.XmlElementGeneratorTools;
-import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.Interface;
@@ -14,7 +13,6 @@ import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.VisitableElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
-import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
 import java.util.stream.Collectors;
 

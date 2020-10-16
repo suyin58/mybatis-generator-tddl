@@ -1,6 +1,5 @@
 package com.dingtalk.generator.plugins;
 
-import com.dingtalk.generator.plugins.util.BeanUtils;
 import com.dingtalk.generator.plugins.util.JavaElementGeneratorTools;
 import com.dingtalk.generator.plugins.util.XmlElementGeneratorTools;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -12,12 +11,7 @@ import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
-import org.mybatis.generator.api.dom.xml.VisitableElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 

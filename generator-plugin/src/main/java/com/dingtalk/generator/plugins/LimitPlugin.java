@@ -59,8 +59,6 @@ public class LimitPlugin extends  BasePlugin {
         );
 //        commentGenerator.addFieldComment(rowsField, introspectedTable);
         topLevelClass.addField(rowsField);
-        System.out.println("(MySQL分页插件):" + topLevelClass.getType().getShortName() + "增加start和limit字段");
-
         // 增加getter && setter 方法
         Method mSetOffset = JavaElementGeneratorTools.generateSetterMethod(offsetField);
 //        commentGenerator.addGeneralMethodComment(mSetOffset, introspectedTable);
@@ -78,7 +76,6 @@ public class LimitPlugin extends  BasePlugin {
 //        commentGenerator.addGeneralMethodComment(mGetRows, introspectedTable);
         topLevelClass.getMethods().add(mGetRows);
 
-        System.out.println("(MySQL分页插件):" + topLevelClass.getType().getShortName() + "增加offset和rows的getter和setter实现。");
 
         // 提供几个快捷方法
         Method setLimit = JavaElementGeneratorTools.generateMethod(
@@ -112,7 +109,6 @@ public class LimitPlugin extends  BasePlugin {
                 "return this;"
         );
         topLevelClass.getMethods().add(setLimit2);
-        System.out.println("(MySQL分页插件):" + topLevelClass.getType().getShortName() + "增加limit方法。");
 
 
         // !!! clear 方法增加 offset 和 rows的清理

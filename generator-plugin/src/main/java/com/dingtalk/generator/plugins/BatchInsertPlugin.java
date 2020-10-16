@@ -1,6 +1,5 @@
 package com.dingtalk.generator.plugins;
 
-import com.dingtalk.generator.plugins.util.ColumnUtils;
 import com.dingtalk.generator.plugins.util.JavaElementGeneratorTools;
 import com.dingtalk.generator.plugins.util.XmlElementGeneratorTools;
 import org.mybatis.generator.api.IntrospectedTable;

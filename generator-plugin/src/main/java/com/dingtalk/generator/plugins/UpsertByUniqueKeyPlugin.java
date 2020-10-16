@@ -31,7 +31,6 @@ import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.VisitableElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.ListUtilities;
-import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,6 @@ import java.util.List;
 /**
  * ---------------------------------------------------------------------------
  * 存在即更新插件
- * ---------------------------------------------------------------------------
  * ---------------------------------------------------------------------------
  */
 public class UpsertByUniqueKeyPlugin extends BasePlugin {
@@ -54,7 +52,6 @@ public class UpsertByUniqueKeyPlugin extends BasePlugin {
         // 插件使用前提是数据库为MySQL
         if ("com.mysql.jdbc.Driver".equalsIgnoreCase(this.getContext().getJdbcConnectionConfiguration().getDriverClass()) == false
                 && "com.mysql.cj.jdbc.Driver".equalsIgnoreCase(this.getContext().getJdbcConnectionConfiguration().getDriverClass()) == false) {
-            warnings.add("itfsw:插件" + this.getClass().getTypeName() + "插件使用前提是数据库为MySQL！");
             return false;
         }
         return super.validate(warnings);

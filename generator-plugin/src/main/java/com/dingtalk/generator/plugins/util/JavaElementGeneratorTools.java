@@ -34,10 +34,7 @@ import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * ---------------------------------------------------------------------------
- * Java ele 生成工具
- * ---------------------------------------------------------------------------
- * @author: hewei
- * @time:2017/4/21 16:22
+ * Java element 生成工具
  * ---------------------------------------------------------------------------
  */
 public class JavaElementGeneratorTools {

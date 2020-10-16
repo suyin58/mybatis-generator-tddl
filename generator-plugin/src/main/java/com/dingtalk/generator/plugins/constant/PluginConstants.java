@@ -2,6 +2,7 @@ package com.dingtalk.generator.plugins.constant;
 
 /**
  * 常量定义
+ *
  * @author suyin
  */
 public class PluginConstants {
