@@ -134,7 +134,6 @@ public class UpsertByUniqueKeyPlugin extends BasePlugin {
 
         insertEle.addElement(new TextElement("on duplicate key update "));
         // set
-
         List<IntrospectedColumn> nonUniqueKeyColumns = new ArrayList<>(introspectedTable.getAllColumns());
         nonUniqueKeyColumns.removeAll(uniqueKey);
         for (VisitableElement where :XmlElementGeneratorTools.generateSets(nonUniqueKeyColumns,null, false)) {
