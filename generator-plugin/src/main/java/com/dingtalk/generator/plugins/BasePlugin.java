@@ -40,7 +40,12 @@ public class BasePlugin extends PluginAdapter {
      */
     List<IntrospectedColumn> uniqueKey;
 
-    IntrospectedColumn autoIncrementColumn;
+
+    /**
+     * 严格按照数据库顺序的allColumns
+     */
+    List<IntrospectedColumn> allColumns;
+
 
 
     @Override
@@ -54,8 +59,7 @@ public class BasePlugin extends PluginAdapter {
         this.uks = null;
         try {
             initUniqueKey(introspectedTable);
-
-            initAutoIncrement(introspectedTable);
+            initAllColumns(introspectedTable);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,27 +72,31 @@ public class BasePlugin extends PluginAdapter {
             this.uniqueKey = (List<IntrospectedColumn>) uk;
         }
 
-        Object autoIncrementColumn = introspectedTable.getAttribute(PluginConstants.TABLE_COLUMN_AUTO_INCREMENT);
-        if(null != autoIncrementColumn){
-            this.autoIncrementColumn = (IntrospectedColumn)autoIncrementColumn;
-        }
     }
 
     /**
-     * 获取automentIncrement字段
+     * 按照数据库顺序的all columns
      * @param it
-     * @throws SQLException
      */
-    private void initAutoIncrement(IntrospectedTable it) throws SQLException{
+    private void initAllColumns(IntrospectedTable it) throws SQLException {
+        Connection connection = getConnection();
+        DatabaseMetaData metaData = connection.getMetaData();
         TableConfiguration tc = it.getTableConfiguration();
-        List<IntrospectedColumn> columns = it.getAllColumns();
-        Optional<IntrospectedColumn> incrementCol =
-                columns.stream().filter(item -> item.isAutoIncrement()).findFirst();
-        if(incrementCol.isPresent()){
-            it.setAttribute(PluginConstants.TABLE_COLUMN_AUTO_INCREMENT,incrementCol.get());
+        ActualTableName tb = getTableInfo(metaData, tc);
+        // uks Map<INDEX_NAME,Set<COLUMN_NAME>>
+        Map<String, List<IntrospectedColumn>> uks = new HashMap<>(5);
+        ResultSet rs = metaData.getColumns(tb.getCatalog(), tb.getSchema(), tb.getTableName(),null);
+        allColumns = new ArrayList<>();
+        while (rs.next()) {
+            // @see https://docs.oracle.com/javase/6/docs/api/java/sql/DatabaseMetaData.html#getColumns(java.lang.String,%20java.lang.String,%20java.lang.String,%20java.lang.String)
+            Optional<IntrospectedColumn> columnOptional =  it.getColumn(rs.getString("COLUMN_NAME"));
+            if(!columnOptional.isPresent()){
+                continue;
+            }
+           allColumns.add(columnOptional.get());
         }
-       
     }
+
     /**
      * 增加unique key 特殊属性
      *

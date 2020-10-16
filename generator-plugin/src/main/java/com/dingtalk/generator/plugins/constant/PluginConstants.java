@@ -15,10 +15,6 @@ public class PluginConstants {
      */
     public static final String TABLE_PROPERTY_UNIQUE_KEY = "uniqueKey";
 
-    /**
-     * 用于指定生成insert、update语句的自增长字段
-     */
-    public static final String TABLE_COLUMN_AUTO_INCREMENT = "autoIncrement";
 
     /**
      * 主键在数据库schema中的IndexName名称，FIXME 此处只验证了mysql的的默认主键名称
@@ -30,5 +26,8 @@ public class PluginConstants {
      */
     public static final String ENUM_NAME = "Column";
 
-
+    /**
+     * DEFAULT VALUE EMPTY_STRING
+     */
+    public static final String DEFAULT_VALUE_EMPTY_STRING = "''";
 }

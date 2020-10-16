@@ -18,6 +18,8 @@ public interface TableTwoUniqueKeyMapper {
 
     List<TableTwoUniqueKey> selectByExample(TableTwoUniqueKeyCriteria example);
 
+    TableTwoUniqueKey selectByExampleForUpdate(TableTwoUniqueKeyCriteria example);
+
     TableTwoUniqueKey selectByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
 
     int updateByExampleSelective(@Param("record") TableTwoUniqueKey record, @Param("example") TableTwoUniqueKeyCriteria example);
@@ -30,7 +32,13 @@ public interface TableTwoUniqueKeyMapper {
 
     TableTwoUniqueKey selectByUniqueKey(@Param("orgId") Long orgId, @Param("cid") String cid);
 
+    TableTwoUniqueKey selectByUniqueKeyForUpdate(@Param("orgId") Long orgId, @Param("cid") String cid);
+
     int updateByUniqueKeySelective(TableTwoUniqueKey record);
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("cid") String cid);
+
+    int batchInsert(@Param("list") List<TableTwoUniqueKey> list);
+
+    int upsertByUniqueKey(TableTwoUniqueKey record);
 }

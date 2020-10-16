@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.dingtalk.mybatis</groupId>
         <artifactId>mybatis-generator-tddl</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>org.dingtalk</groupId>
     <artifactId>generator-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <description>generator自定义调整方法</description>
 
     <dependencies>
@@ -21,6 +21,10 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mybatis.generator</groupId>

@@ -18,6 +18,8 @@ public interface TableOneUniqueKeyMapper {
 
     List<TableOneUniqueKey> selectByExample(TableOneUniqueKeyCriteria example);
 
+    TableOneUniqueKey selectByExampleForUpdate(TableOneUniqueKeyCriteria example);
+
     TableOneUniqueKey selectByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
 
     int updateByExampleSelective(@Param("record") TableOneUniqueKey record, @Param("example") TableOneUniqueKeyCriteria example);
@@ -30,7 +32,13 @@ public interface TableOneUniqueKeyMapper {
 
     TableOneUniqueKey selectByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
 
+    TableOneUniqueKey selectByUniqueKeyForUpdate(@Param("orgId") Long orgId, @Param("code") String code);
+
     int updateByUniqueKeySelective(TableOneUniqueKey record);
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
+
+    int batchInsert(@Param("list") List<TableOneUniqueKey> list);
+
+    int upsertByUniqueKey(TableOneUniqueKey record);
 }

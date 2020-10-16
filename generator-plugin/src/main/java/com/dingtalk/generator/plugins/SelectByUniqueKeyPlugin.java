@@ -11,10 +11,10 @@ import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
+import org.mybatis.generator.api.dom.xml.VisitableElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
@@ -30,13 +30,6 @@ public class SelectByUniqueKeyPlugin extends BasePlugin {
      */
     public static final String METHOD_SELECT_BY_UNIQUE_KEY = "selectByUniqueKey";
 
-
-    @Override
-    public void initialized(IntrospectedTable introspectedTable) {
-        super.initialized(introspectedTable);
-    }
-
-
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
         if(null == uniqueKey || uniqueKey.size() == 0){
@@ -48,6 +41,7 @@ public class SelectByUniqueKeyPlugin extends BasePlugin {
                 METHOD_SELECT_BY_UNIQUE_KEY,
                 JavaVisibility.PUBLIC,
                 JavaElementGeneratorTools.getModelTypeWithBLOBs(introspectedTable),
+                true,
                 uniqueKey.stream().map(it -> new Parameter(it.getFullyQualifiedJavaType(),it.getJavaProperty(),
                         "@Param(\""+it.getJavaProperty()+"\")"
                 )).collect(Collectors.toList())
@@ -77,12 +71,12 @@ public class SelectByUniqueKeyPlugin extends BasePlugin {
         // 生成查询语句
         XmlElement answer = new XmlElement("select");
         // 添加注释(!!!必须添加注释，overwrite覆盖生成时，@see XmlFileMergerJaxp.isGeneratedNode会去判断注释中是否存在OLD_ELEMENT_TAGS中的一点，例子：@mbg.generated)
-//        commentGenerator.addComment(selectOneElement);
+        context.getCommentGenerator().addComment(answer);
 
         // 添加ID
         answer.addAttribute(new Attribute("id", METHOD_SELECT_BY_UNIQUE_KEY));
         // 添加返回类型
-        if (introspectedTable.getRules().generateResultMapWithBLOBs()) {
+        if (introspectedTable.hasBLOBColumns()) {
             answer.addAttribute(new Attribute("resultMap", //$NON-NLS-1$
                     introspectedTable.getResultMapWithBLOBsId()));
         } else {
@@ -121,22 +115,8 @@ public class SelectByUniqueKeyPlugin extends BasePlugin {
         sb.append(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
         // 添加where语句
-        boolean and = false;
-        for (IntrospectedColumn introspectedColumn : uniqueKey) {
-            sb.setLength(0);
-            if (and) {
-                sb.append("  and "); //$NON-NLS-1$
-            } else {
-                sb.append("where "); //$NON-NLS-1$
-                and = true;
-            }
-
-            sb.append(MyBatis3FormattingUtilities
-                    .getAliasedEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
-            sb.append(MyBatis3FormattingUtilities
-                    .getParameterClause(introspectedColumn));
-            answer.addElement(new TextElement(sb.toString()));
+        for (VisitableElement where :XmlElementGeneratorTools.generateWheres(uniqueKey)) {
+            answer.addElement(where);
         }
 
         XmlElementGeneratorTools.addElementWithBestPosition(document.getRootElement(), answer);
