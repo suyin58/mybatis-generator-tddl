@@ -5,7 +5,7 @@
     <groupId>com.dingtalk.mybatis</groupId>
     <artifactId>mybatis-generator-tddl</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>mybatis-generator-tddl</name>
 
     <properties>
