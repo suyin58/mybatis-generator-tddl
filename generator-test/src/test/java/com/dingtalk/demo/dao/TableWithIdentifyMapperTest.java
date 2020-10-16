@@ -1,11 +1,11 @@
 package com.dingtalk.demo.dao;
 
 import com.dingtalk.demo.MapperBaseTest;
-import com.dingtalk.demo.domain.TableOneUniqueKey;
 import com.dingtalk.demo.domain.TableWithIdentify;
+import com.dingtalk.demo.domain.TableWithIdentifyCriteria;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -29,12 +29,13 @@ public class TableWithIdentifyMapperTest extends MapperBaseTest {
     @Resource
     TableWithIdentifyMapper tableWithIdentifyMapper;
 
-    List<TableWithIdentify> columns = new ArrayList<>();
+    List<TableWithIdentify> batchs = new ArrayList<>();
 
+    int batchNum = 10;
     @Before
     public void init() {
-        for (int i = 0; i < 10; i++) {
-            columns.add(TableWithIdentify.builder()
+        for (int i = 0; i < batchNum; i++) {
+            batchs.add(TableWithIdentify.builder()
                     .cid("cid" + i)
                     .code("code" + i).gmtCreate(new Date()).gmtModified(new Date()).orgId(1L + i)
                     .build()
@@ -44,7 +45,8 @@ public class TableWithIdentifyMapperTest extends MapperBaseTest {
 
     @Test
     public void testBatchInsert() {
-        int n = tableWithIdentifyMapper.batchInsert(columns);
-        System.out.println(n);
+        tableWithIdentifyMapper.deleteByExample(new TableWithIdentifyCriteria());
+        int n = tableWithIdentifyMapper.batchInsert(batchs);
+        Assert.assertTrue(batchNum == n);
     }
 }

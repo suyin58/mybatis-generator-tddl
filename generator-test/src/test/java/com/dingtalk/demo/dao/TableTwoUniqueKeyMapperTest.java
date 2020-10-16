@@ -1,7 +1,6 @@
 package com.dingtalk.demo.dao;
 
 import com.dingtalk.demo.MapperBaseTest;
-import com.dingtalk.demo.domain.TableOneUniqueKey;
 import com.dingtalk.demo.domain.TableTwoUniqueKey;
 import org.junit.Assert;
 import org.junit.Test;

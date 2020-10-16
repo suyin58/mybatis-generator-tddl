@@ -4,7 +4,6 @@ import com.dingtalk.generator.plugins.util.JavaElementGeneratorTools;
 import com.dingtalk.generator.plugins.util.XmlElementGeneratorTools;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
@@ -18,30 +17,30 @@ import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
 import java.util.stream.Collectors;
 
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+
 /**
  * select by uniqueKey, should assign unique key name
  * @author suyin
  */
-public class DeleteByUniqueKeyPlugin extends BasePlugin {
-
+public class SelectByUniqueKeyForUpdatePlugin extends BasePlugin {
 
     /**
      * Mapper.java 方法名
      */
-    public static final String METHOD_DELETE_BY_UNIQUE_KEY = "deleteByUniqueKey";
-
+    public static final String METHOD_SELECT_BY_UNIQUE_KEY_FOR_UPDATE = "selectByUniqueKeyForUpdate";
 
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
         if(null == uniqueKey || uniqueKey.size() == 0){
-            System.err.println("generator deleteByUniqueKey break ,cause by no unique can be found");
+            System.err.println("generator selectByUniqueKey break ,cause by no unique can be found");
             return false;
         }
         // 方法生成
         Method selectMethod = JavaElementGeneratorTools.generateMethod(
-                METHOD_DELETE_BY_UNIQUE_KEY,
+                METHOD_SELECT_BY_UNIQUE_KEY_FOR_UPDATE,
                 JavaVisibility.PUBLIC,
-                new FullyQualifiedJavaType("int"),
+                JavaElementGeneratorTools.getModelTypeWithBLOBs(introspectedTable),
                 true,
                 uniqueKey.stream().map(it -> new Parameter(it.getFullyQualifiedJavaType(),it.getJavaProperty(),
                         "@Param(\""+it.getJavaProperty()+"\")"
@@ -58,7 +57,7 @@ public class DeleteByUniqueKeyPlugin extends BasePlugin {
 
     /**
      * 生成XML文件
-     * @see  org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.DeleteByPrimaryKeyElementGenerator
+     * @see  org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.SelectByPrimaryKeyElementGenerator
      * @param document
      * @param introspectedTable
      * @return
@@ -69,10 +68,21 @@ public class DeleteByUniqueKeyPlugin extends BasePlugin {
         if(null == uniqueKey || uniqueKey.size() == 0){
             return false;
         }
-        XmlElement answer = new XmlElement("delete"); //$NON-NLS-1$
+        // 生成查询语句
+        XmlElement answer = new XmlElement("select");
+        // 添加注释(!!!必须添加注释，overwrite覆盖生成时，@see XmlFileMergerJaxp.isGeneratedNode会去判断注释中是否存在OLD_ELEMENT_TAGS中的一点，例子：@mbg.generated)
+        context.getCommentGenerator().addComment(answer);
 
-        answer.addAttribute(new Attribute(
-                "id", METHOD_DELETE_BY_UNIQUE_KEY)); //$NON-NLS-1$
+        // 添加ID
+        answer.addAttribute(new Attribute("id", METHOD_SELECT_BY_UNIQUE_KEY_FOR_UPDATE));
+        // 添加返回类型
+        if (introspectedTable.getRules().generateResultMapWithBLOBs()) {
+            answer.addAttribute(new Attribute("resultMap", //$NON-NLS-1$
+                    introspectedTable.getResultMapWithBLOBsId()));
+        } else {
+            answer.addAttribute(new Attribute("resultMap", //$NON-NLS-1$
+                    introspectedTable.getBaseResultMapId()));
+        }
 
         // 添加参数类型
         String parameterType;
@@ -84,19 +94,34 @@ public class DeleteByUniqueKeyPlugin extends BasePlugin {
             parameterType = "map"; //$NON-NLS-1$
         }
         answer.addAttribute(new Attribute("parameterType", parameterType));
-
-        context.getCommentGenerator().addComment(answer);
+        answer.addElement(new TextElement("select"));
 
         StringBuilder sb = new StringBuilder();
-        sb.append("delete from "); //$NON-NLS-1$
-        sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
+        if (stringHasValue(introspectedTable.getSelectByExampleQueryId())) {
+            sb.append('\'');
+            sb.append(introspectedTable.getSelectByExampleQueryId());
+            sb.append("' as QUERYID,");
+        }
         answer.addElement(new TextElement(sb.toString()));
-        // where
+
+        answer.addElement(XmlElementGeneratorTools.getBaseColumnListElement(introspectedTable));
+        if (introspectedTable.hasBLOBColumns()) {
+            answer.addElement(new TextElement(",")); //$NON-NLS-1$
+            answer.addElement(XmlElementGeneratorTools.getBlobColumnListElement(introspectedTable));
+        }
+        // 添加from tableName
+        sb.setLength(0);
+        sb.append("from ");
+        sb.append(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
+        answer.addElement(new TextElement(sb.toString()));
+        // 添加where语句
         for (VisitableElement where :XmlElementGeneratorTools.generateWheres(uniqueKey)) {
             answer.addElement(where);
         }
+
+        answer.addElement(new TextElement("for update"));
+
         XmlElementGeneratorTools.addElementWithBestPosition(document.getRootElement(), answer);
         return true;
     }
-
 }

@@ -12,6 +12,7 @@ import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
+import org.mybatis.generator.api.dom.xml.VisitableElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.ListUtilities;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
@@ -42,6 +43,7 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
                 METHOD_UPDATE_BY_UNIQUE_KEY_SELECTIVE,
                 JavaVisibility.PUBLIC,
                 new FullyQualifiedJavaType("int"),
+                true,
                 new Parameter(new FullyQualifiedJavaType(introspectedTable.getBaseRecordType()), "record")
         );
 
@@ -85,7 +87,7 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
 
         answer.addAttribute(new Attribute("parameterType", //$NON-NLS-1$
                 parameterType));
-//        context.getCommentGenerator().addComment(answer);
+        context.getCommentGenerator().addComment(answer);
 
         // 增加update语句
         StringBuilder sb = new StringBuilder();
@@ -118,22 +120,8 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
         }
 
         // 增加where条件语句
-        boolean and = false;
-        for (IntrospectedColumn introspectedColumn : uniqueKey) {
-            sb.setLength(0);
-            if (and) {
-                sb.append("  and "); //$NON-NLS-1$
-            } else {
-                sb.append("where "); //$NON-NLS-1$
-                and = true;
-            }
-
-            sb.append(MyBatis3FormattingUtilities
-                    .getEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
-            sb.append(MyBatis3FormattingUtilities
-                    .getParameterClause(introspectedColumn));
-            answer.addElement(new TextElement(sb.toString()));
+        for (VisitableElement where :XmlElementGeneratorTools.generateWheres(uniqueKey)) {
+            answer.addElement(where);
         }
 
         XmlElementGeneratorTools.addElementWithBestPosition(document.getRootElement(), answer);

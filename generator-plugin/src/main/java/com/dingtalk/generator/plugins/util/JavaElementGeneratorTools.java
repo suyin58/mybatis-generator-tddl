@@ -85,7 +85,8 @@ public class JavaElementGeneratorTools {
      * @param parameters 参数列表
      * @return
      */
-    public static Method generateMethod(String methodName, JavaVisibility visibility, FullyQualifiedJavaType returnType, Parameter... parameters) {
+    public static Method generateMethod(String methodName, JavaVisibility visibility,
+                                        FullyQualifiedJavaType returnType, boolean abstrat,Parameter... parameters) {
         List<Parameter> params = new ArrayList<>();
         if (parameters != null) {
             for (Parameter parameter : parameters) {
@@ -93,15 +94,17 @@ public class JavaElementGeneratorTools {
             }
         }
 
-        return generateMethod(methodName, visibility, returnType, params);
+        return generateMethod(methodName, visibility, returnType,abstrat, params);
     }
 
 
-    public static  Method generateMethod(String methodName, JavaVisibility visibility, FullyQualifiedJavaType returnType, List<Parameter> parameters) {
+    public static  Method generateMethod(String methodName, JavaVisibility visibility,
+                                         FullyQualifiedJavaType returnType,
+                                         boolean abstrat,  List<Parameter> parameters) {
         Method method = new Method(methodName);
         method.setVisibility(visibility);
         method.setReturnType(returnType);
-        method.setAbstract(true);
+        method.setAbstract(abstrat);
         if (parameters != null) {
             for (Parameter parameter : parameters) {
                 method.addParameter(parameter);
@@ -136,6 +139,7 @@ public class JavaElementGeneratorTools {
                 "set" + FormatTools.upFirstChar(field.getName()),
                 JavaVisibility.PUBLIC,
                 null,
+                false,
                 new Parameter(field.getType(), field.getName())
         );
         return generateMethodBody(method, "this." + field.getName() + " = " + field.getName() + ";");
@@ -150,7 +154,8 @@ public class JavaElementGeneratorTools {
         Method method = generateMethod(
                 "get" + FormatTools.upFirstChar(field.getName()),
                 JavaVisibility.PUBLIC,
-                field.getType()
+                field.getType(),
+                false
         );
         return generateMethodBody(method, "return this." + field.getName() + ";");
     }

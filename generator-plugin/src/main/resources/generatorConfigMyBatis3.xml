@@ -41,9 +41,17 @@
         </plugin>
         <plugin type="com.dingtalk.generator.plugins.DeleteByUniqueKeyPlugin">
         </plugin>
-
         <plugin type="com.dingtalk.generator.plugins.BatchInsertPlugin">
         </plugin>
+        <plugin type="com.dingtalk.generator.plugins.SelectByUniqueKeyForUpdatePlugin">
+        </plugin>
+        <plugin type="com.dingtalk.generator.plugins.selectByExampleForUpdate">
+        </plugin>
+        <plugin type="com.dingtalk.generator.plugins.LimitPlugin">
+        </plugin>
+        <plugin type="com.dingtalk.generator.plugins.UpsertByUniqueKeyPlugin">
+        </plugin>
+
         <!-- 自定义插件结束 -->
 
         <!--自定义注释开始 -->

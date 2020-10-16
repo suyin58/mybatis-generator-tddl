@@ -35,6 +35,7 @@ public class BatchInsertPlugin extends BasePlugin {
                 METHOD_BATCH_INSERT,
                 JavaVisibility.DEFAULT,
                 FullyQualifiedJavaType.getIntInstance(),
+                true,
                 new Parameter(listType, "list", "@Param(\"list\")")
 
         );
@@ -52,14 +53,15 @@ public class BatchInsertPlugin extends BasePlugin {
         // 参数类型
         answer.addAttribute(new Attribute("parameterType", "map"));
         // 添加注释(!!!必须添加注释，overwrite覆盖生成时，@see XmlFileMergerJaxp.isGeneratedNode会去判断注释中是否存在OLD_ELEMENT_TAGS中的一点，例子：@mbg.generated)
-//        commentGenerator.addComment(answer);
+        context.getCommentGenerator().addComment(answer);
 
         // 使用JDBC的getGenereatedKeys方法获取主键并赋值到keyProperty设置的领域模型属性中。所以只支持MYSQL和SQLServer
 //        XmlElementGeneratorTools.useGeneratedKeys(answer, introspectedTable);
 
         answer.addElement(new TextElement("insert into " + introspectedTable.getFullyQualifiedTableNameAtRuntime()));
         for (VisitableElement element :
-                XmlElementGeneratorTools.generateKeys(ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable.getAllColumns()), true)) {
+                XmlElementGeneratorTools.generateKeys(ListUtilities.removeIdentityAndGeneratedAlwaysColumns(allColumns),
+                        true)) {
             answer.addElement(element);
         }
 
@@ -69,9 +71,11 @@ public class BatchInsertPlugin extends BasePlugin {
         foreachElement.addAttribute(new Attribute("item", "item"));
         foreachElement.addAttribute(new Attribute("separator", ","));
 
-        for (VisitableElement element : XmlElementGeneratorTools.generateValues(ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable.getAllColumns()), "item.")) {
-            foreachElement.addElement(element);
-        }
+
+        XmlElement valuesTrimElement = new XmlElement("trim");
+        foreachElement.addElement(valuesTrimElement);
+        valuesTrimElement.addElement(XmlElementGeneratorTools.generateValuesSelective(ListUtilities.removeIdentityAndGeneratedAlwaysColumns(allColumns), "item.", true) );
+
 
         // values 构建
         answer.addElement(new TextElement("values"));

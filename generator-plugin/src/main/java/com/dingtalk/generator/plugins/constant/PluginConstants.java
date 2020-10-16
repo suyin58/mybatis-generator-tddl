@@ -26,5 +26,8 @@ public class PluginConstants {
      */
     public static final String ENUM_NAME = "Column";
 
-
+    /**
+     * DEFAULT VALUE EMPTY_STRING
+     */
+    public static final String DEFAULT_VALUE_EMPTY_STRING = "''";
 }

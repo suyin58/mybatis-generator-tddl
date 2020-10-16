@@ -5,7 +5,7 @@
     <parent>
         <artifactId>mybatis-generator-tddl</artifactId>
         <groupId>com.dingtalk.mybatis</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,7 +14,7 @@
         <dependency>
             <groupId>org.dingtalk</groupId>
             <artifactId>generator-plugin</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
 
         <!--db start-->
@@ -52,7 +52,24 @@
             <artifactId>spring-test</artifactId>
             <version>4.3.6.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.dingtalk</groupId>
+            <artifactId>generator-plugin</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
         <!-- springframe end -->
+
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
 
     </dependencies>
 

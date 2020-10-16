@@ -41,6 +41,12 @@ public class BasePlugin extends PluginAdapter {
     List<IntrospectedColumn> uniqueKey;
 
 
+    /**
+     * 严格按照数据库顺序的allColumns
+     */
+    List<IntrospectedColumn> allColumns;
+
+
 
     @Override
     public boolean validate(List<String> warnings) {
@@ -53,6 +59,7 @@ public class BasePlugin extends PluginAdapter {
         this.uks = null;
         try {
             initUniqueKey(introspectedTable);
+            initAllColumns(introspectedTable);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,6 +72,29 @@ public class BasePlugin extends PluginAdapter {
             this.uniqueKey = (List<IntrospectedColumn>) uk;
         }
 
+    }
+
+    /**
+     * 按照数据库顺序的all columns
+     * @param it
+     */
+    private void initAllColumns(IntrospectedTable it) throws SQLException {
+        Connection connection = getConnection();
+        DatabaseMetaData metaData = connection.getMetaData();
+        TableConfiguration tc = it.getTableConfiguration();
+        ActualTableName tb = getTableInfo(metaData, tc);
+        // uks Map<INDEX_NAME,Set<COLUMN_NAME>>
+        Map<String, List<IntrospectedColumn>> uks = new HashMap<>(5);
+        ResultSet rs = metaData.getColumns(tb.getCatalog(), tb.getSchema(), tb.getTableName(),null);
+        allColumns = new ArrayList<>();
+        while (rs.next()) {
+            // @see https://docs.oracle.com/javase/6/docs/api/java/sql/DatabaseMetaData.html#getColumns(java.lang.String,%20java.lang.String,%20java.lang.String,%20java.lang.String)
+            Optional<IntrospectedColumn> columnOptional =  it.getColumn(rs.getString("COLUMN_NAME"));
+            if(!columnOptional.isPresent()){
+                continue;
+            }
+           allColumns.add(columnOptional.get());
+        }
     }
 
     /**

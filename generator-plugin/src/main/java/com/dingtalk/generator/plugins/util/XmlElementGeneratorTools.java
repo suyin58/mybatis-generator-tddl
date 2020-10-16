@@ -16,6 +16,7 @@
 
 package com.dingtalk.generator.plugins.util;
 
+import com.dingtalk.generator.plugins.constant.PluginConstants;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.OutputUtilities;
@@ -234,4 +235,173 @@ public class XmlElementGeneratorTools {
         return generateCommColumns(columns, prefix, bracket, 2);
     }
 
+    /**
+     * 生成values Ele
+     * @param columns
+     * @param prefix
+     * @param bracket
+     * @return
+     */
+    public static List<VisitableElement> generateSets(List<IntrospectedColumn> columns, String prefix,
+                                                      boolean bracket) {
+        return generateCommColumns(columns, prefix, bracket, 3);
+    }
+
+    /**
+     * 生成values Selective Ele
+     * @param columns
+     * @param prefix
+     * @param defaultVal 是否使用默认值，有默认值填充默认值，没有默认值，不写choose
+     * @return
+     */
+    public static VisitableElement generateValuesSelective(List<IntrospectedColumn> columns, String prefix,
+                                                           boolean defaultVal) {
+        return generateValuesSelective(columns, prefix, true, defaultVal);
+    }
+    /**
+     * 生成values Selective Ele
+     * @param columns
+     * @param prefix
+     * @param bracket
+     * @param defaultVal 是否使用默认值，有默认值填充默认值，没有默认值，不写choose
+     * @return
+     */
+    public static VisitableElement generateValuesSelective(List<IntrospectedColumn> columns, String prefix, boolean bracket,
+                                                           boolean defaultVal) {
+        return generateCommColumnsSelective(columns, prefix, bracket, 2, defaultVal);
+    }
+
+    /**
+     * 通用遍历columns
+     * @param columns
+     * @param prefix
+     * @param bracket
+     * @param type    1:key,2:value,3:set
+     * @param defaultVal 是否使用默认值，有默认值填充默认值，没有默认值，不写choose
+     * @return
+     */
+    private static VisitableElement generateCommColumnsSelective(List<IntrospectedColumn> columns, String prefix, boolean bracket
+            , int type, boolean defaultVal) {
+        XmlElement trimEle = generateTrim(bracket);
+        for (IntrospectedColumn introspectedColumn : columns) {
+            generateSelectiveToTrimEleTo(trimEle, introspectedColumn, prefix, type, defaultVal);
+        }
+        return trimEle;
+    }
+
+    /**
+     * 生成选择列到trim 节点
+     * @param trimEle
+     * @param introspectedColumn
+     * @param prefix
+     * @param type               1:key,2:value,3:set
+     * @param defaultVal 是否使用默认值，有默认值填充默认值，没有默认值，不写choose
+     */
+    private static void generateSelectiveToTrimEleTo(XmlElement trimEle, IntrospectedColumn introspectedColumn, String prefix
+            , int type , boolean defaultVal) {
+        if(defaultVal){
+
+            String defVal = introspectedColumn.getDefaultValue();
+            if(introspectedColumn.isNullable() || null == defVal){
+                // 如果没有默认值，那么直接写 x = ?
+                trimEle.addElement(new TextElement(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn,
+                        prefix) + ","));
+            }else{
+                /*
+          <choose>
+            <when test="item.cid != null">
+              #{item.cid,jdbcType=VARCHAR},
+            </when>
+            <otherwise>
+              '',
+            </otherwise>
+          </choose>
+                 */
+                // 如果有默认值，写choose
+                XmlElement eleIf = new XmlElement("choose");
+                XmlElement when = new XmlElement("when");
+                eleIf.addElement(when);
+                when.addAttribute(new Attribute("test", introspectedColumn.getJavaProperty(prefix) + " != null"));
+                generateSelectiveCommColumnTo(when, introspectedColumn, prefix, type);
+
+                XmlElement otherwise = new XmlElement("otherwise");
+                eleIf.addElement(otherwise);
+
+                otherwise.addElement(new TextElement(defVal.length() ==0 ? PluginConstants.DEFAULT_VALUE_EMPTY_STRING : defVal));
+                trimEle.addElement(eleIf);
+
+            }
+        }else {
+            XmlElement eleIf = new XmlElement("if");
+            eleIf.addAttribute(new Attribute("test", introspectedColumn.getJavaProperty(prefix) + " != null"));
+
+            generateSelectiveCommColumnTo(eleIf, introspectedColumn, prefix, type);
+
+            trimEle.addElement(eleIf);
+        }
+    }
+    /**
+     * 生成
+     * @param element
+     * @param introspectedColumn
+     * @param prefix
+     * @param type               1:key,2:value,3:set
+     */
+    private static void generateSelectiveCommColumnTo(XmlElement element, IntrospectedColumn introspectedColumn, String prefix, int type) {
+        switch (type) {
+            case 3:
+                element.addElement(new TextElement(MyBatis3FormattingUtilities.getEscapedColumnName(introspectedColumn) + " = " + MyBatis3FormattingUtilities.getParameterClause(introspectedColumn, prefix) + ","));
+                break;
+            case 2:
+
+                element.addElement(new TextElement(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn, prefix) + ","));
+                break;
+            case 1:
+                element.addElement(new TextElement(MyBatis3FormattingUtilities.getEscapedColumnName(introspectedColumn) + ","));
+                break;
+        }
+    }
+
+    /**
+     * trim 节点
+     * @param bracket
+     * @return
+     */
+    private static XmlElement generateTrim(boolean bracket) {
+        XmlElement trimEle = new XmlElement("trim");
+        if (bracket) {
+            trimEle.addAttribute(new Attribute("prefix", "("));
+            trimEle.addAttribute(new Attribute("suffix", ")"));
+            trimEle.addAttribute(new Attribute("suffixOverrides", ","));
+        } else {
+            trimEle.addAttribute(new Attribute("suffixOverrides", ","));
+        }
+        return trimEle;
+    }
+
+
+    public static List<VisitableElement> generateWheres(List<IntrospectedColumn> uniqueKey) {
+        List<VisitableElement> answer = new ArrayList<>();
+        // 添加where语句
+        boolean and = false;
+        StringBuilder sb = new StringBuilder();
+        for (IntrospectedColumn introspectedColumn : uniqueKey) {
+            sb.setLength(0);
+            if (and) {
+                sb.append("  and "); //$NON-NLS-1$
+            } else {
+                sb.append("where "); //$NON-NLS-1$
+                and = true;
+            }
+
+            sb.append(MyBatis3FormattingUtilities
+                    .getAliasedEscapedColumnName(introspectedColumn));
+            sb.append(" = "); //$NON-NLS-1$
+            sb.append(MyBatis3FormattingUtilities
+                    .getParameterClause(introspectedColumn));
+            answer.add(new TextElement(sb.toString()));
+        }
+
+        return answer;
+    }
 }
