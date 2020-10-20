@@ -1,44 +1,44 @@
 package com.toolplat.demo.dao;
 
-import com.toolplat.demo.domain.TableTwoUniqueKey;
-import com.toolplat.demo.domain.TableTwoUniqueKeyExample;
+import com.toolplat.demo.domain.TableTwoUniqueKeyPO;
+import com.toolplat.demo.domain.TableTwoUniqueKeyPOExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TableTwoUniqueKeyMapper {
-    long countByExample(TableTwoUniqueKeyExample example);
+    long countByExample(TableTwoUniqueKeyPOExample example);
 
-    int deleteByExample(TableTwoUniqueKeyExample example);
+    int deleteByExample(TableTwoUniqueKeyPOExample example);
 
     int deleteByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int insert(TableTwoUniqueKey record);
+    int insert(TableTwoUniqueKeyPO record);
 
-    int insertSelective(TableTwoUniqueKey record);
+    int insertSelective(TableTwoUniqueKeyPO record);
 
-    List<TableTwoUniqueKey> selectByExample(TableTwoUniqueKeyExample example);
+    List<TableTwoUniqueKeyPO> selectByExample(TableTwoUniqueKeyPOExample example);
 
-    TableTwoUniqueKey selectByExampleForUpdate(TableTwoUniqueKeyExample example);
+    TableTwoUniqueKeyPO selectByExampleForUpdate(TableTwoUniqueKeyPOExample example);
 
-    TableTwoUniqueKey selectByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
+    TableTwoUniqueKeyPO selectByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int updateByExampleSelective(@Param("record") TableTwoUniqueKey record, @Param("example") TableTwoUniqueKeyExample example);
+    int updateByExampleSelective(@Param("record") TableTwoUniqueKeyPO record, @Param("example") TableTwoUniqueKeyPOExample example);
 
-    int updateByExample(@Param("record") TableTwoUniqueKey record, @Param("example") TableTwoUniqueKeyExample example);
+    int updateByExample(@Param("record") TableTwoUniqueKeyPO record, @Param("example") TableTwoUniqueKeyPOExample example);
 
-    int updateByPrimaryKeySelective(TableTwoUniqueKey record);
+    int updateByPrimaryKeySelective(TableTwoUniqueKeyPO record);
 
-    int updateByPrimaryKey(TableTwoUniqueKey record);
+    int updateByPrimaryKey(TableTwoUniqueKeyPO record);
 
-    TableTwoUniqueKey selectByUniqueKey(@Param("orgId") Long orgId, @Param("cid") String cid);
+    TableTwoUniqueKeyPO selectByUniqueKey(@Param("orgId") Long orgId, @Param("cid") String cid);
 
-    TableTwoUniqueKey selectByUniqueKeyForUpdate(@Param("orgId") Long orgId, @Param("cid") String cid);
+    TableTwoUniqueKeyPO selectByUniqueKeyForUpdate(@Param("orgId") Long orgId, @Param("cid") String cid);
 
-    int updateByUniqueKeySelective(TableTwoUniqueKey record);
+    int updateByUniqueKeySelective(TableTwoUniqueKeyPO record);
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("cid") String cid);
 
-    int upsertByUniqueKey(TableTwoUniqueKey record);
+    int upsertByUniqueKey(TableTwoUniqueKeyPO record);
 
-    int batchInsert(@Param("list") List<TableTwoUniqueKey> list);
+    int batchInsert(@Param("list") List<TableTwoUniqueKeyPO> list);
 }

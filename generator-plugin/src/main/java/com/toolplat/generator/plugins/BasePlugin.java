@@ -117,6 +117,9 @@ public class BasePlugin extends PluginAdapter {
         while (rs.next()) {
             // @see https://docs.oracle.com/javase/6/docs/api/java/sql/DatabaseMetaData.html#getColumns(java.lang.String,%20java.lang.String,%20java.lang.String,%20java.lang.String)
             String indexName = rs.getString("INDEX_NAME");
+            if("PRIMARY".equals(indexName)){
+                continue;
+            }
             Optional<IntrospectedColumn> columnOptional =  it.getColumn(rs.getString("COLUMN_NAME"));
             if(!columnOptional.isPresent()){
                 continue;

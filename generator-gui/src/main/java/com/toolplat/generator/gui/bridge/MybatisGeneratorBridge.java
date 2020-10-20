@@ -107,16 +107,16 @@ public class MybatisGeneratorBridge {
 		} else {
             tableConfig.setCatalog(selectedDatabaseConfig.getSchema());
 	    }
-//        if (generatorConfig.isUseSchemaPrefix()) {
-//            if (DbType.MySQL.name().equals(dbType) || DbType.MySQL_8.name().equals(dbType)) {
-//                tableConfig.setSchema(selectedDatabaseConfig.getSchema());
-//            } else if (DbType.Oracle.name().equals(dbType)) {
-//                //Oracle的schema为用户名，如果连接用户拥有dba等高级权限，若不设schema，会导致把其他用户下同名的表也生成一遍导致mapper中代码重复
-//                tableConfig.setSchema(selectedDatabaseConfig.getUsername());
-//            } else {
-//                tableConfig.setCatalog(selectedDatabaseConfig.getSchema());
-//            }
-//        }
+        if (generatorConfig.isUseSchemaPrefix()) {
+            if (DbType.MySQL.name().equals(dbType) || DbType.MySQL_8.name().equals(dbType)) {
+                tableConfig.setSchema(selectedDatabaseConfig.getSchema());
+            } else if (DbType.Oracle.name().equals(dbType)) {
+                //Oracle的schema为用户名，如果连接用户拥有dba等高级权限，若不设schema，会导致把其他用户下同名的表也生成一遍导致mapper中代码重复
+                tableConfig.setSchema(selectedDatabaseConfig.getUsername());
+            } else {
+                tableConfig.setCatalog(selectedDatabaseConfig.getSchema());
+            }
+        }
         // 针对 postgresql 单独配置
 		if (DbType.PostgreSQL.name().equals(dbType)) {
             tableConfig.setDelimitIdentifiers(true);
@@ -231,7 +231,7 @@ public class MybatisGeneratorBridge {
                 tableConfig.addProperty(PluginConstants.TABLE_PROPERTY_UNIQUE_KEY, ukName);
             }else{
                 if(CollectionUtils.isNotEmpty(generatorConfig.getObservableList())){
-                    AlertUtil.showErrorAlert("请选择唯一索引");
+                    AlertUtil.showErrorAlert("请选择唯一索引", null);
                     return;
                 }
             }

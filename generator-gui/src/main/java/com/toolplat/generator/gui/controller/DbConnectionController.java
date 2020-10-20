@@ -52,7 +52,7 @@ public class DbConnectionController extends BaseFXController {
             mainUIController.loadLeftDBTree();
         } catch (Exception e) {
             _LOG.error(e.getMessage(), e);
-            AlertUtil.showErrorAlert(e.getMessage());
+            AlertUtil.showErrorAlert(e.getMessage(), e);
         }
     }
 

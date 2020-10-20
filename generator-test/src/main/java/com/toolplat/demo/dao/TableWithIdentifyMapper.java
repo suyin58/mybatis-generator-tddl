@@ -1,44 +1,44 @@
 package com.toolplat.demo.dao;
 
-import com.toolplat.demo.domain.TableWithIdentify;
-import com.toolplat.demo.domain.TableWithIdentifyExample;
+import com.toolplat.demo.domain.TableWithIdentifyPO;
+import com.toolplat.demo.domain.TableWithIdentifyPOExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TableWithIdentifyMapper {
-    long countByExample(TableWithIdentifyExample example);
+    long countByExample(TableWithIdentifyPOExample example);
 
-    int deleteByExample(TableWithIdentifyExample example);
+    int deleteByExample(TableWithIdentifyPOExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(TableWithIdentify record);
+    int insert(TableWithIdentifyPO record);
 
-    int insertSelective(TableWithIdentify record);
+    int insertSelective(TableWithIdentifyPO record);
 
-    List<TableWithIdentify> selectByExample(TableWithIdentifyExample example);
+    List<TableWithIdentifyPO> selectByExample(TableWithIdentifyPOExample example);
 
-    TableWithIdentify selectByExampleForUpdate(TableWithIdentifyExample example);
+    TableWithIdentifyPO selectByExampleForUpdate(TableWithIdentifyPOExample example);
 
-    TableWithIdentify selectByPrimaryKey(Long id);
+    TableWithIdentifyPO selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") TableWithIdentify record, @Param("example") TableWithIdentifyExample example);
+    int updateByExampleSelective(@Param("record") TableWithIdentifyPO record, @Param("example") TableWithIdentifyPOExample example);
 
-    int updateByExample(@Param("record") TableWithIdentify record, @Param("example") TableWithIdentifyExample example);
+    int updateByExample(@Param("record") TableWithIdentifyPO record, @Param("example") TableWithIdentifyPOExample example);
 
-    int updateByPrimaryKeySelective(TableWithIdentify record);
+    int updateByPrimaryKeySelective(TableWithIdentifyPO record);
 
-    int updateByPrimaryKey(TableWithIdentify record);
+    int updateByPrimaryKey(TableWithIdentifyPO record);
 
-    TableWithIdentify selectByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
+    TableWithIdentifyPO selectByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    TableWithIdentify selectByUniqueKeyForUpdate(@Param("orgId") Long orgId, @Param("code") String code);
+    TableWithIdentifyPO selectByUniqueKeyForUpdate(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int updateByUniqueKeySelective(TableWithIdentify record);
+    int updateByUniqueKeySelective(TableWithIdentifyPO record);
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int upsertByUniqueKey(TableWithIdentify record);
+    int upsertByUniqueKey(TableWithIdentifyPO record);
 
-    int batchInsert(@Param("list") List<TableWithIdentify> list);
+    int batchInsert(@Param("list") List<TableWithIdentifyPO> list);
 }

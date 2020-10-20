@@ -31,8 +31,8 @@ public class SelectByUniqueKeyPlugin extends BasePlugin {
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
         if(null == uniqueKey || uniqueKey.size() == 0){
-            System.err.println("generator selectByUniqueKey break ,cause by no unique can be found");
-            return false;
+            System.err.println("generator SelectByUniqueKeyPlugin break ,cause by no unique can be found");
+            return true;
         }
         // 方法生成
         Method selectMethod = JavaElementGeneratorTools.generateMethod(
@@ -64,13 +64,11 @@ public class SelectByUniqueKeyPlugin extends BasePlugin {
     public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
 
         if(null == uniqueKey || uniqueKey.size() == 0){
-            return false;
+            return true;
         }
         // 生成查询语句
         XmlElement answer = new XmlElement("select");
-        // 添加注释(!!!必须添加注释，overwrite覆盖生成时，@see XmlFileMergerJaxp.isGeneratedNode会去判断注释中是否存在OLD_ELEMENT_TAGS中的一点，例子：@mbg.generated)
         context.getCommentGenerator().addComment(answer);
-
         // 添加ID
         answer.addAttribute(new Attribute("id", METHOD_SELECT_BY_UNIQUE_KEY));
         // 添加返回类型

@@ -32,8 +32,8 @@ public class DeleteByUniqueKeyPlugin extends BasePlugin {
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
         if(null == uniqueKey || uniqueKey.size() == 0){
-            System.err.println("generator deleteByUniqueKey break ,cause by no unique can be found");
-            return false;
+            System.err.println("generator DeleteByUniqueKeyPlugin break ,cause by no unique can be found");
+            return true;
         }
         // 方法生成
         Method selectMethod = JavaElementGeneratorTools.generateMethod(
@@ -65,7 +65,7 @@ public class DeleteByUniqueKeyPlugin extends BasePlugin {
     public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
 
         if(null == uniqueKey || uniqueKey.size() == 0){
-            return false;
+            return true;
         }
         XmlElement answer = new XmlElement("delete"); //$NON-NLS-1$
 

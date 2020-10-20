@@ -36,7 +36,7 @@ public class SelectByExampleForUpdate extends BasePlugin {
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
         String useExample = introspectedTable.getTableConfigurationProperty(PluginConstants.USE_EXAMPLE);
         if(null != useExample && !Boolean.valueOf(useExample)){
-            return false;
+            return true;
         }
 
         // 方法生成
@@ -64,7 +64,7 @@ public class SelectByExampleForUpdate extends BasePlugin {
     public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
         String useExample = introspectedTable.getTableConfigurationProperty("useExample");
         if(null != useExample && !Boolean.valueOf(useExample)){
-            return false;
+            return true;
         }
 
         XmlElement answer = new XmlElement("select"); //$NON-NLS-1$

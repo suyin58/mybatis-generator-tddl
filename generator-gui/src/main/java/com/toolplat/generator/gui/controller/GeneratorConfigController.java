@@ -63,10 +63,11 @@ public class GeneratorConfigController extends BaseFXController {
                             try {
                                 // 应用配置
                                 GeneratorConfig generatorConfig = ConfigHelper.loadGeneratorConfig(item.toString());
+                                generatorConfig.setObservableList(null);
                                 mainUIController.setGeneratorConfigIntoUI(generatorConfig);
                                 controller.closeDialogStage();
                             } catch (Exception e) {
-                                AlertUtil.showErrorAlert(e.getMessage());
+                                AlertUtil.showErrorAlert(e.getMessage(), e);
                             }
                         });
                         btn2.setOnAction(event -> {
@@ -76,7 +77,7 @@ public class GeneratorConfigController extends BaseFXController {
                                 ConfigHelper.deleteGeneratorConfig(item.toString());
                                 refreshTableView();
                             } catch (Exception e) {
-                                AlertUtil.showErrorAlert(e.getMessage());
+                                AlertUtil.showErrorAlert(e.getMessage(), e);
                             }
                         });
                         setGraphic(hBox);
@@ -92,7 +93,7 @@ public class GeneratorConfigController extends BaseFXController {
             List<GeneratorConfig> configs = ConfigHelper.loadGeneratorConfigs();
             configTable.setItems(FXCollections.observableList(configs));
         } catch (Exception e) {
-            AlertUtil.showErrorAlert(e.getMessage());
+            AlertUtil.showErrorAlert(e.getMessage(), e);
         }
     }
 

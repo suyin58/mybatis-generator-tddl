@@ -66,6 +66,10 @@ public class UpsertByUniqueKeyPlugin extends BasePlugin {
      */
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
+        if(null == uniqueKey || uniqueKey.size() == 0){
+            System.err.println("generator UpsertByUniqueKeyPlugin break ,cause by no unique can be found");
+            return true;
+        }
         // ====================================== upsert ======================================
         Method mUpsert = JavaElementGeneratorTools.generateMethod(
                 METHOD_UPSERT_BY_UNIQUE_KEY,
@@ -89,6 +93,9 @@ public class UpsertByUniqueKeyPlugin extends BasePlugin {
      */
     @Override
     public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
+        if(null == uniqueKey || uniqueKey.size() == 0){
+            return true;
+        }
         this.generateXmlElement(document, introspectedTable);
 
         return super.sqlMapDocumentGenerated(document, introspectedTable);
@@ -103,6 +110,7 @@ public class UpsertByUniqueKeyPlugin extends BasePlugin {
         List<IntrospectedColumn> columns = ListUtilities.removeGeneratedAlwaysColumns( introspectedTable.getAllColumns());
         // ====================================== upsert ======================================
         XmlElement insertEle = new XmlElement("insert");
+        context.getCommentGenerator().addComment(insertEle);
         insertEle.addAttribute(new Attribute("id", METHOD_UPSERT_BY_UNIQUE_KEY));
 
         // 增加update标签的parameter
@@ -115,7 +123,6 @@ public class UpsertByUniqueKeyPlugin extends BasePlugin {
 
         insertEle.addAttribute(new Attribute("parameterType", //$NON-NLS-1$
                 parameterType));
-        context.getCommentGenerator().addComment(insertEle);
 
 
         // insert

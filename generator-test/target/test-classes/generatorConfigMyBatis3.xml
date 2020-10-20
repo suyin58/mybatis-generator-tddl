@@ -100,17 +100,17 @@
 
 
         <!-- table是用户指定的被生成相关信息的表，它必须在指定的jdbc连接中已经被建立。可以多个 -->
-        <table tableName="table_one_unique_key" domainObjectName="TableOneUniqueKey" >
+        <table tableName="table_one_unique_key" domainObjectName="TableOneUniqueKeyPO"  >
 <!--               enableInsert="true"-->
 <!--               enableSelectByPrimaryKey="false" enableUpdateByPrimaryKey="false"-->
 <!--               enableDeleteByPrimaryKey="false" enableCountByExample="false"-->
 <!--               enableDeleteByExample="false"-->
 <!--               enableSelectByExample="false" enableUpdateByExample="false"-->
         </table>
-        <table tableName="table_two_unique_key" domainObjectName="TableTwoUniqueKey">
+        <table tableName="table_two_unique_key" domainObjectName="TableTwoUniqueKeyPO">
             <property name="uniqueKey" value="uk_org_cid"/>
         </table>
-        <table tableName="table_with_identify" domainObjectName="TableWithIdentify"></table>
+        <table tableName="table_with_identify" domainObjectName="TableWithIdentifyPO"></table>
 
 
     </context>

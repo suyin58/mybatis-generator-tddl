@@ -145,7 +145,7 @@ public class OverSshController extends DbConnectionController {
             mainUIController.loadLeftDBTree();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            AlertUtil.showErrorAlert(e.getMessage());
+            AlertUtil.showErrorAlert(e.getMessage(), e);
         }
     }
 
@@ -153,7 +153,7 @@ public class OverSshController extends DbConnectionController {
     public void testSSH() {
         Session session = DbUtil.getSSHSession(extractConfigFromUi());
         if (session == null) {
-            AlertUtil.showErrorAlert("请检查主机，端口，用户名，以及密码是否填写正确");
+            AlertUtil.showErrorAlert("请检查主机，端口，用户名，以及密码是否填写正确", null);
             return;
         }
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -175,7 +175,7 @@ public class OverSshController extends DbConnectionController {
             AlertUtil.showInfoAlert("连接SSH服务器成功，恭喜你可以使用OverSSH功能");
             recoverNotice();
         } catch (Exception e) {
-            AlertUtil.showErrorAlert("请检查主机，端口，用户名，以及密码是否填写正确: " + e.getMessage());
+            AlertUtil.showErrorAlert("请检查主机，端口，用户名，以及密码是否填写正确: " + e.getMessage(), e);
         } finally {
             DbUtil.shutdownPortForwarding(session);
         }

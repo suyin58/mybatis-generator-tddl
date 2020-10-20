@@ -117,7 +117,7 @@ public class DbUtil {
 				}
 
 				_LOG.info("executorService isShutdown:{}", executorService.isShutdown());
-				AlertUtil.showErrorAlert("OverSSH 失败，请检查连接设置:" + e.getMessage());
+				AlertUtil.showErrorAlert("OverSSH 失败，请检查连接设置:" + e.getMessage(), e);
 			}
 		}
 	}

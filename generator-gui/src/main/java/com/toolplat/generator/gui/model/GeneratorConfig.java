@@ -57,6 +57,8 @@ public class GeneratorConfig {
 
 	private String encoding;
 
+	private boolean useSchemaPrefix;
+
 
 	private boolean useUniqueKey;
 	private String uniqueKeyName;

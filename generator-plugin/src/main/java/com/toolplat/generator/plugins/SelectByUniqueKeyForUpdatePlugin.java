@@ -31,8 +31,8 @@ public class SelectByUniqueKeyForUpdatePlugin extends BasePlugin {
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
         if(null == uniqueKey || uniqueKey.size() == 0){
-            System.err.println("generator selectByUniqueKey break ,cause by no unique can be found");
-            return false;
+            System.err.println("generator SelectByUniqueKeyForUpdatePlugin break ,cause by no unique can be found");
+            return true;
         }
         // 方法生成
         Method selectMethod = JavaElementGeneratorTools.generateMethod(
@@ -47,7 +47,6 @@ public class SelectByUniqueKeyForUpdatePlugin extends BasePlugin {
 
         // 注释生成
         // commentGenerator.addGeneralMethodComment(selectOneMethod, introspectedTable);
-
         // 构造interface
         JavaElementGeneratorTools.addMethodToInterface(interfaze, selectMethod);
         return super.clientGenerated(interfaze, introspectedTable);
@@ -64,7 +63,7 @@ public class SelectByUniqueKeyForUpdatePlugin extends BasePlugin {
     public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
 
         if(null == uniqueKey || uniqueKey.size() == 0){
-            return false;
+            return true;
         }
         // 生成查询语句
         XmlElement answer = new XmlElement("select");
@@ -92,6 +91,7 @@ public class SelectByUniqueKeyForUpdatePlugin extends BasePlugin {
             parameterType = "map"; //$NON-NLS-1$
         }
         answer.addAttribute(new Attribute("parameterType", parameterType));
+        context.getCommentGenerator().addComment(answer);
         answer.addElement(new TextElement("select"));
 
         StringBuilder sb = new StringBuilder();

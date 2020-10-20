@@ -1,12 +1,16 @@
 package com.toolplat.generator.gui.view;
 
+import com.toolplat.generator.gui.controller.OverSshController;
 import javafx.scene.control.Alert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by Owen on 6/21/16.
  */
 public class AlertUtil {
 
+    private static Logger logger = LoggerFactory.getLogger(AlertUtil.class);
     public static void showInfoAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(message);
@@ -19,7 +23,8 @@ public class AlertUtil {
         alert.show();
     }
 
-    public static void showErrorAlert(String message) {
+    public static void showErrorAlert(String message, Throwable e) {
+        logger.error(message, e);
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(message);
         alert.show();

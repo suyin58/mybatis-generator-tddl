@@ -34,7 +34,7 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
         if(null == uniqueKey || uniqueKey.size() == 0){
             System.err.println("generator updateByUniqueKeySelective break ,cause by no unique can be found");
-            return false;
+            return true;
         }
         // 方法生成
         Method selectMethod = JavaElementGeneratorTools.generateMethod(
@@ -68,10 +68,11 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
 
 
         if(null == uniqueKey || uniqueKey.size() == 0){
-            return false;
+            return true;
         }
         // 增加update标签
         XmlElement answer = new XmlElement("update"); //$NON-NLS-1$
+        context.getCommentGenerator().addComment(answer);
         answer.addAttribute(new Attribute(
                 "id", METHOD_UPDATE_BY_UNIQUE_KEY_SELECTIVE)); //$NON-NLS-1$
 
@@ -85,7 +86,6 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
 
         answer.addAttribute(new Attribute("parameterType", //$NON-NLS-1$
                 parameterType));
-        context.getCommentGenerator().addComment(answer);
 
         // 增加update语句
         StringBuilder sb = new StringBuilder();

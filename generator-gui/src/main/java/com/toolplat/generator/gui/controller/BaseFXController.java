@@ -50,8 +50,7 @@ public abstract class BaseFXController implements Initializable {
 
             return controller;
         } catch (IOException e) {
-            _LOG.error(e.getMessage(), e);
-            AlertUtil.showErrorAlert(e.getMessage());
+            AlertUtil.showErrorAlert(e.getMessage(), e);
         }
         return null;
     }

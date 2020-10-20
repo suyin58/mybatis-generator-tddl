@@ -103,6 +103,8 @@ public class MainUIController extends BaseFXController {
     @FXML
     private ChoiceBox uniqueName;
     @FXML
+    private CheckBox useSchemaPrefix;
+    @FXML
     private TreeView<String> leftDBTree;
     // Current selected databaseConfig
     private DatabaseConfig selectedDatabaseConfig;
@@ -177,7 +179,7 @@ public class MainUIController extends BaseFXController {
                             ConfigHelper.deleteDatabaseConfig(selectedConfig);
                             this.loadLeftDBTree();
                         } catch (Exception e) {
-                            AlertUtil.showErrorAlert("Delete connection failed! Reason: " + e.getMessage());
+                            AlertUtil.showErrorAlert("Delete connection failed! Reason: " + e.getMessage(), e);
                         }
                     });
                     contextMenu.getItems().addAll(item1, item2, item3);
@@ -206,11 +208,9 @@ public class MainUIController extends BaseFXController {
                                 }
                             }
                         } catch (SQLRecoverableException e) {
-                            _LOG.error(e.getMessage(), e);
-                            AlertUtil.showErrorAlert("连接超时");
+                            AlertUtil.showErrorAlert("连接超时", e);
                         } catch (Exception e) {
-                            _LOG.error(e.getMessage(), e);
-                            AlertUtil.showErrorAlert(e.getMessage());
+                            AlertUtil.showErrorAlert(e.getMessage(), e);
                         }
                     } else if (level == 2) { // left DB tree level3
                         String tableName = treeCell.getTreeItem().getValue();
@@ -270,7 +270,7 @@ public class MainUIController extends BaseFXController {
             }
         } catch (Exception e) {
             _LOG.error("connect db failed, reason: {}", e);
-            AlertUtil.showErrorAlert(e.getMessage() + "\n" + ExceptionUtils.getStackTrace(e));
+            AlertUtil.showErrorAlert(e.getMessage() + "\n" + ExceptionUtils.getStackTrace(e), e);
         }
     }
 
@@ -291,7 +291,7 @@ public class MainUIController extends BaseFXController {
         }
         String result = validateConfig();
 		if (result != null) {
-			AlertUtil.showErrorAlert(result);
+			AlertUtil.showErrorAlert(result, null);
 			return;
 		}
         GeneratorConfig generatorConfig = getGeneratorConfigFromUI();
@@ -339,8 +339,7 @@ public class MainUIController extends BaseFXController {
                 new Thread(task).start();
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            AlertUtil.showErrorAlert(e.getMessage());
+            AlertUtil.showErrorAlert(e.getMessage(), e);
             if (pictureProcessStateController != null) {
                 pictureProcessStateController.close();
                 pictureProcessStateController.playFailState(e.getMessage(), true);
@@ -372,18 +371,19 @@ public class MainUIController extends BaseFXController {
         if (result.isPresent()) {
             String name = result.get();
             if (StringUtils.isEmpty(name)) {
-                AlertUtil.showErrorAlert("名称不能为空");
+                AlertUtil.showErrorAlert("名称不能为空", null);
                 return;
             }
             _LOG.info("user choose name: {}", name);
             try {
                 GeneratorConfig generatorConfig = getGeneratorConfigFromUI();
                 generatorConfig.setName(name);
+                generatorConfig.setObservableList(null);
                 ConfigHelper.deleteGeneratorConfig(name);
                 ConfigHelper.saveGeneratorConfig(generatorConfig);
             } catch (Exception e) {
                 _LOG.error("保存配置失败", e);
-                AlertUtil.showErrorAlert("保存配置失败");
+                AlertUtil.showErrorAlert("保存配置失败", null);
             }
         }
     }
@@ -414,6 +414,7 @@ public class MainUIController extends BaseFXController {
         generatorConfig.setUniqueKeyName(uniqueName.getSelectionModel().isEmpty()? null :
                 uniqueName.getValue().toString());
         generatorConfig.setObservableList(uniqueName.getItems());
+        generatorConfig.setUseSchemaPrefix(useSchemaPrefix.isSelected());
         return generatorConfig;
     }
 
@@ -439,6 +440,7 @@ public class MainUIController extends BaseFXController {
         usePrimaryKey.setSelected(generatorConfig.isUsePrimaryKey());
         useUniqueKey.setSelected(generatorConfig.isUseUniqueKey());
         uniqueName.getSelectionModel().select(generatorConfig.getUniqueKeyName());
+        useSchemaPrefix.setSelected(generatorConfig.isUseSchemaPrefix());
     }
 
     @FXML
@@ -459,7 +461,7 @@ public class MainUIController extends BaseFXController {
             controller.showDialogStage();
         } catch (Exception e) {
             _LOG.error(e.getMessage(), e);
-            AlertUtil.showErrorAlert(e.getMessage());
+            AlertUtil.showErrorAlert(e.getMessage(), e);
         }
     }
 
@@ -501,7 +503,7 @@ public class MainUIController extends BaseFXController {
 						}
 						return true;
 					} catch (Exception e) {
-						AlertUtil.showErrorAlert("创建目录失败，请检查目录是否是文件而非目录");
+						AlertUtil.showErrorAlert("创建目录失败，请检查目录是否是文件而非目录", e);
 					}
 				} else {
 					return false;
@@ -518,7 +520,7 @@ public class MainUIController extends BaseFXController {
         try {
             Desktop.getDesktop().browse(new File(projectFolder).toURI());
         }catch (Exception e) {
-            AlertUtil.showErrorAlert("打开目录失败，请检查目录是否填写正确" + e.getMessage());
+            AlertUtil.showErrorAlert("打开目录失败，请检查目录是否填写正确" + e.getMessage(), e);
         }
 
     }

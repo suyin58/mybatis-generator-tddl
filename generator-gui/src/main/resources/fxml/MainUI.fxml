@@ -165,7 +165,7 @@
                                         </HBox>
                                         <Label text="实体类名包名" GridPane.rowIndex="4"/>
                                         <TextField fx:id="modelTargetPackage" prefHeight="27.0" prefWidth="220.0"
-                                                   promptText="com.toolplat.fv.dataobject"
+                                                   promptText="com.toolplat.demo.domain"
                                                    GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <HBox.margin>
                                                 <Insets right="5.0"/>
@@ -183,7 +183,7 @@
                                         </TextField>
                                         <Label text="Mapper接口包名" GridPane.rowIndex="5"/>
                                         <TextField fx:id="daoTargetPackage" prefHeight="27.0" prefWidth="220.0"
-                                                   promptText="com.toolplat.fv.mapper"
+                                                   promptText="com.toolplat.demo.dao"
                                                    GridPane.columnIndex="1" GridPane.rowIndex="5">
                                             <HBox.margin>
                                                 <Insets right="5.0"/>
@@ -200,7 +200,7 @@
                                             </GridPane.margin>
                                         </TextField>
                                         <Label prefHeight="27.0" prefWidth="99.0" text="映射XML文件包名" GridPane.rowIndex="7"/>
-                                        <TextField fx:id="mapperTargetPackage" prefHeight="27.0" prefWidth="248.0" promptText="mapper" text="mapper"
+                                        <TextField fx:id="mapperTargetPackage" prefHeight="27.0" prefWidth="248.0" promptText="com.toolplat.demo.dao"
                                                    GridPane.columnIndex="1" GridPane.rowIndex="7">
                                             <HBox.margin>
                                                 <Insets right="5.0"/>

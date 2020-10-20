@@ -1,8 +1,8 @@
 package com.toolplat.demo.dao;
 
 import com.toolplat.demo.MapperBaseTest;
-import com.toolplat.demo.domain.TableWithIdentify;
-import com.toolplat.demo.domain.TableWithIdentifyExample;
+import com.toolplat.demo.domain.TableWithIdentifyPO;
+import com.toolplat.demo.domain.TableWithIdentifyPOExample;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,13 +29,13 @@ public class TableWithIdentifyMapperTest extends MapperBaseTest {
     @Resource
     TableWithIdentifyMapper tableWithIdentifyMapper;
 
-    List<TableWithIdentify> batchs = new ArrayList<>();
+    List<TableWithIdentifyPO> batchs = new ArrayList<>();
 
     int batchNum = 10;
     @Before
     public void init() {
         for (int i = 0; i < batchNum; i++) {
-            batchs.add(TableWithIdentify.builder()
+            batchs.add(TableWithIdentifyPO.builder()
                     .cid("cid" + i)
                     .code("code" + i).gmtCreate(new Date()).gmtModified(new Date()).orgId(1L + i)
                     .build()
@@ -45,7 +45,7 @@ public class TableWithIdentifyMapperTest extends MapperBaseTest {
 
     @Test
     public void testBatchInsert() {
-        tableWithIdentifyMapper.deleteByExample(new TableWithIdentifyExample());
+        tableWithIdentifyMapper.deleteByExample(new TableWithIdentifyPOExample());
         int n = tableWithIdentifyMapper.batchInsert(batchs);
         Assert.assertTrue(batchNum == n);
     }

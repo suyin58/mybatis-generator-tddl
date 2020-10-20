@@ -1,7 +1,7 @@
 package com.toolplat.demo.dao;
 
 import com.toolplat.demo.MapperBaseTest;
-import com.toolplat.demo.domain.TableTwoUniqueKey;
+import com.toolplat.demo.domain.TableTwoUniqueKeyPO;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -28,8 +28,8 @@ public class TableTwoUniqueKeyMapperTest extends MapperBaseTest {
     @Resource
     TableTwoUniqueKeyMapper tableTwoUniqueKeyMapper;
 
-    static TableTwoUniqueKey tableTwoUniqueKey =
-            TableTwoUniqueKey.builder().id(1L).cid("cid").code("code").gmtCreate(new Date()).gmtModified(new Date()).orgId(1L).build();
+    static TableTwoUniqueKeyPO tableTwoUniqueKey =
+            TableTwoUniqueKeyPO.builder().id(1L).cid("cid").code("code").gmtCreate(new Date()).gmtModified(new Date()).orgId(1L).build();
 
     @Test
     public void testInsert(){
@@ -41,7 +41,7 @@ public class TableTwoUniqueKeyMapperTest extends MapperBaseTest {
     @Test
     public void testSelectByUniqueKey(){
 
-        TableTwoUniqueKey mapping = tableTwoUniqueKeyMapper.selectByUniqueKey(tableTwoUniqueKey.getOrgId(),
+        TableTwoUniqueKeyPO mapping = tableTwoUniqueKeyMapper.selectByUniqueKey(tableTwoUniqueKey.getOrgId(),
                 tableTwoUniqueKey.getCid());
         Assert.assertNotNull(mapping);
     }
