@@ -27,7 +27,7 @@
 
         <!-- 自定义插件开始 -->
         <!-- lombok 插件 -->
-        <plugin type="com.dingtalk.generator.plugins.LombokPlugin">
+        <plugin type="com.toolplat.generator.plugins.LombokPlugin">
             <property name="data" value="true"/>
             <property name="builder" value="true"/>
             <property name="allArgsConstructor" value="true"/>
@@ -36,30 +36,30 @@
         </plugin>
 
         <!-- 自定义unique key操作插件 -->
-        <plugin type="com.dingtalk.generator.plugins.SelectByUniqueKeyPlugin">
+        <plugin type="com.toolplat.generator.plugins.SelectByUniqueKeyPlugin">
         </plugin>
-        <plugin type="com.dingtalk.generator.plugins.UpdateByUniqueKeySelectivePlugin">
+        <plugin type="com.toolplat.generator.plugins.UpdateByUniqueKeySelectivePlugin">
         </plugin>
-        <plugin type="com.dingtalk.generator.plugins.DeleteByUniqueKeyPlugin">
+        <plugin type="com.toolplat.generator.plugins.DeleteByUniqueKeyPlugin">
         </plugin>
-        <plugin type="com.dingtalk.generator.plugins.UpsertByUniqueKeyPlugin">
+        <plugin type="com.toolplat.generator.plugins.UpsertByUniqueKeyPlugin">
         </plugin>
         <!--批量插入插件-->
-        <plugin type="com.dingtalk.generator.plugins.BatchInsertPlugin">
+        <plugin type="com.toolplat.generator.plugins.BatchInsertPlugin">
         </plugin>
         <!--for update 插件-->
-        <plugin type="com.dingtalk.generator.plugins.SelectByExampleForUpdate">
+        <plugin type="com.toolplat.generator.plugins.SelectByExampleForUpdate">
         </plugin>
-        <plugin type="com.dingtalk.generator.plugins.SelectByUniqueKeyForUpdatePlugin">
+        <plugin type="com.toolplat.generator.plugins.SelectByUniqueKeyForUpdatePlugin">
         </plugin>
         <!--分页插件-->
-        <plugin type="com.dingtalk.generator.plugins.LimitPlugin">
+        <plugin type="com.toolplat.generator.plugins.LimitPlugin">
         </plugin>
         <!-- 自定义插件结束 -->
 
         <!--自定义注释开始 -->
         <!-- commentGenerator 去除自动生成的注释  -->
-        <commentGenerator type="com.dingtalk.generator.plugins.CommentGenerator">
+        <commentGenerator type="com.toolplat.generator.plugins.CommentGenerator">
             <property name="author" value="szy" />
         </commentGenerator>
         <!--自定义注释结束 -->
@@ -80,20 +80,20 @@
         </javaTypeResolver>
 
         <!-- javaModelGenerator是模型的生成信息，这里将指定这些Java model类的生成路径； -->
-        <javaModelGenerator targetPackage="com.dingtalk.demo.domain"
+        <javaModelGenerator targetPackage="com.toolplat.demo.domain"
                             targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
         <!-- sqlMapGenerator是mybatis 的sqlMapper XML文件的生成信息，包括生成路径等；   先生成xml，在生成java-->
-        <sqlMapGenerator targetPackage="com.dingtalk.demo.dao"
+        <sqlMapGenerator targetPackage="com.toolplat.demo.dao"
                          targetProject="src/main/resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
         <!-- javaClientGenerator是应用接口的生成信息； -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.dingtalk.demo.dao"
+                             targetPackage="com.toolplat.demo.dao"
                              targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>

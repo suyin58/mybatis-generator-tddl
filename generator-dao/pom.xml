@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.dingtalk.mybatis</groupId>
+        <groupId>com.toolplat.mybatis</groupId>
         <artifactId>mybatis-generator-tddl</artifactId>
         <version>1.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>org.dingtalk</groupId>
+    <groupId>org.toolplat</groupId>
     <artifactId>generator-dao</artifactId>
     <version>1.0.2-SNAPSHOT</version>
     <description>用于存储gui执行的页面保存数据，便于用户存储多个项目的不同配置</description>

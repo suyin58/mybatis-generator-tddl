@@ -54,7 +54,7 @@
         <property name="mapperLocations">
             <list>
                 <value>
-                    classpath*:com/dingtalk/**/dao/**/*Mapper.xml
+                    classpath*:com/toolplat/**/dao/**/*Mapper.xml
                 </value>
             </list>
         </property>
@@ -65,7 +65,7 @@
         </property>
     </bean>
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.dingtalk.demo.dao.**" />
+        <property name="basePackage" value="com.toolplat.demo.dao.**" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 
     </bean>
@@ -79,7 +79,7 @@
                           proxy-target-class="true" />
 
 
-    <bean id="logPlugin" class="com.dingtalk.common.log.MybatisInterceptor">
+    <bean id="logPlugin" class="com.toolplat.common.log.MybatisInterceptor">
     </bean>
 
 </beans>

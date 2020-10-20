@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.dingtalk.mybatis</groupId>
+        <groupId>com.toolplat.mybatis</groupId>
         <artifactId>mybatis-generator-tddl</artifactId>
         <version>1.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.dingtalk.mybatis</groupId>
+    <groupId>com.toolplat.mybatis</groupId>
     <artifactId>generator-gui</artifactId>
     <version>1.0.2-SNAPSHOT</version>
     <description>界面配置工具</description>
@@ -18,7 +18,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.dingtalk</groupId>
+            <groupId>org.toolplat</groupId>
             <artifactId>generator-plugin</artifactId>
             <version>1.0.2-SNAPSHOT</version>
         </dependency>

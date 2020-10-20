@@ -29,7 +29,7 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="613.0" prefWidth="918.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.dingtalk.generator.gui.controller.MainUIController">
+            fx:controller="com.toolplat.generator.gui.controller.MainUIController">
     <top>
         <VBox>
             <children>
@@ -165,7 +165,7 @@
                                         </HBox>
                                         <Label text="实体类名包名" GridPane.rowIndex="4"/>
                                         <TextField fx:id="modelTargetPackage" prefHeight="27.0" prefWidth="220.0"
-                                                   promptText="com.dingtalk.fv.dataobject"
+                                                   promptText="com.toolplat.fv.dataobject"
                                                    GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <HBox.margin>
                                                 <Insets right="5.0"/>
@@ -183,7 +183,7 @@
                                         </TextField>
                                         <Label text="Mapper接口包名" GridPane.rowIndex="5"/>
                                         <TextField fx:id="daoTargetPackage" prefHeight="27.0" prefWidth="220.0"
-                                                   promptText="com.dingtalk.fv.mapper"
+                                                   promptText="com.toolplat.fv.mapper"
                                                    GridPane.columnIndex="1" GridPane.rowIndex="5">
                                             <HBox.margin>
                                                 <Insets right="5.0"/>
