@@ -1,11 +1,11 @@
 package com.toolplat.generator.gui.controller;
 
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 import com.toolplat.generator.gui.model.DatabaseConfig;
 import com.toolplat.generator.gui.util.ConfigHelper;
 import com.toolplat.generator.gui.util.DbUtil;
 import com.toolplat.generator.gui.view.AlertUtil;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -30,14 +30,13 @@ import java.util.concurrent.TimeoutException;
  * @author slankka on 2018/12/30.
  */
 public class OverSshController extends DbConnectionController {
-    private Logger logger = LoggerFactory.getLogger(OverSshController.class);
-
     @FXML
     public Label lPortLabel;
     @FXML
     public TextField sshUserField;
     @FXML
     public PasswordField sshPasswordField;
+    private final Logger logger = LoggerFactory.getLogger(OverSshController.class);
     @FXML
     private TextField sshHostField;
     @FXML

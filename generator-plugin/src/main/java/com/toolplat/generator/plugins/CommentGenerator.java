@@ -3,10 +3,13 @@ package com.toolplat.generator.plugins;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.Method;
+import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.internal.DefaultCommentGenerator;
 
+import java.util.Optional;
 import java.util.Properties;
 
 /**
@@ -39,7 +42,9 @@ public class CommentGenerator extends DefaultCommentGenerator {
         String tableDesc = introspectedTable.getRemarks();
         topLevelClass.addJavaDocLine("/**");
         topLevelClass.addJavaDocLine(" * " + tableDesc);
-        topLevelClass.addJavaDocLine(" * @author " + auth);
+        if (null != auth && auth.length() > 0) {
+            topLevelClass.addJavaDocLine(" * @author " + auth);
+        }
         topLevelClass.addJavaDocLine(" */");
     }
 
@@ -59,13 +64,33 @@ public class CommentGenerator extends DefaultCommentGenerator {
 
 
     /**
+     * @param a
+     * @return
+     */
+    public String test(String a) {
+        return "";
+    }
+
+    /**
      * remove java mapping coment
+     *
      * @param method
      * @param introspectedTable
      */
     @Override
     public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
-       // super.addGeneralMethodComment(method, introspectedTable);
+        method.addJavaDocLine("/**");
+        method.addJavaDocLine(" * auto method:" + method.getName());
+        if (method.getParameters() != null && method.getParameters().size() > 0) {
+            for (Parameter param : method.getParameters()) {
+                method.addJavaDocLine(" * @param " + param.getName());
+            }
+        }
+        Optional<FullyQualifiedJavaType> ret = method.getReturnType();
+        if (ret.isPresent()) {
+            method.addJavaDocLine(" * @return " + ret.get().getShortName());
+        }
+        method.addJavaDocLine(" */");
     }
 
 }

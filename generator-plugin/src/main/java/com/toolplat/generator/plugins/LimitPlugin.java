@@ -40,6 +40,7 @@ public class LimitPlugin extends  BasePlugin {
      */
     @Override
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+
         PrimitiveTypeWrapper integerWrapper = FullyQualifiedJavaType.getIntInstance().getPrimitiveTypeWrapper();
         // 添加offset和rows字段
         Field offsetField = JavaElementGeneratorTools.generateField(

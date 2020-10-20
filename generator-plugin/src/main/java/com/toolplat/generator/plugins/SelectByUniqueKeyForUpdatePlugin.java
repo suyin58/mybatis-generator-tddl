@@ -35,20 +35,20 @@ public class SelectByUniqueKeyForUpdatePlugin extends BasePlugin {
             return true;
         }
         // 方法生成
-        Method selectMethod = JavaElementGeneratorTools.generateMethod(
+        Method method = JavaElementGeneratorTools.generateMethod(
                 METHOD,
                 JavaVisibility.PUBLIC,
                 JavaElementGeneratorTools.getModelTypeWithBLOBs(introspectedTable),
                 true,
-                uniqueKey.stream().map(it -> new Parameter(it.getFullyQualifiedJavaType(),it.getJavaProperty(),
-                        "@Param(\""+it.getJavaProperty()+"\")"
+                uniqueKey.stream().map(it -> new Parameter(it.getFullyQualifiedJavaType(), it.getJavaProperty(),
+                        "@Param(\"" + it.getJavaProperty() + "\")"
                 )).collect(Collectors.toList())
         );
 
         // 注释生成
-        // commentGenerator.addGeneralMethodComment(selectOneMethod, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
         // 构造interface
-        JavaElementGeneratorTools.addMethodToInterface(interfaze, selectMethod);
+        JavaElementGeneratorTools.addMethodToInterface(interfaze, method);
         return super.clientGenerated(interfaze, introspectedTable);
     }
 

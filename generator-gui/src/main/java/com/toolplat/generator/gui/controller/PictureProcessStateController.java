@@ -23,15 +23,16 @@ import javafx.util.Duration;
 import static javafx.scene.paint.Color.DARKSEAGREEN;
 
 public class PictureProcessStateController {
-    private ImageView dbImage = new ImageView("icons/SSH_tunnel.png");
     private final Rectangle rect = new Rectangle(20, 20, 30, 30);
     private final RotateTransition rotateTransition = new RotateTransition();
     private final Text text = new Text("");
     private final Stage dialogStage = new Stage(StageStyle.TRANSPARENT);
+    private final Button button = new Button("");
+    private final ImageView dbImage = new ImageView("icons/SSH_tunnel.png");
     private double initX;
     private double initY;
     private Stage parentStage;
-    private final Button button = new Button("");
+
     public void setDialogStage(Stage stage) {
         this.parentStage = stage;
     }
@@ -86,8 +87,8 @@ public class PictureProcessStateController {
         button.setOnMouseClicked((event) -> dialogStage.close());
 
         rootGroup.setOnMousePressed((me) -> {
-                initX = me.getScreenX() - dialogStage.getX();
-                initY = me.getScreenY() - dialogStage.getY();
+            initX = me.getScreenX() - dialogStage.getX();
+            initY = me.getScreenY() - dialogStage.getY();
         });
         rootGroup.setOnMouseDragged((me) -> {
             dialogStage.setX(me.getScreenX() - initX);

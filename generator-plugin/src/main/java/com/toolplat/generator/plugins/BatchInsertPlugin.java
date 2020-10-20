@@ -30,7 +30,7 @@ public class BatchInsertPlugin extends BasePlugin {
         // 1. batchInsert
         FullyQualifiedJavaType listType = FullyQualifiedJavaType.getNewListInstance();
         listType.addTypeArgument(introspectedTable.getRules().calculateAllFieldsClass());
-        Method mBatchInsert = JavaElementGeneratorTools.generateMethod(
+        Method method = JavaElementGeneratorTools.generateMethod(
                 METHOD,
                 JavaVisibility.DEFAULT,
                 FullyQualifiedJavaType.getIntInstance(),
@@ -38,9 +38,9 @@ public class BatchInsertPlugin extends BasePlugin {
                 new Parameter(listType, "list", "@Param(\"list\")")
 
         );
-//        commentGenerator.addGeneralMethodComment(mBatchInsert, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
         // interface 增加方法
-        JavaElementGeneratorTools.addMethodToInterface(interfaze, mBatchInsert);
+        JavaElementGeneratorTools.addMethodToInterface(interfaze, method);
         return super.clientGenerated(interfaze, introspectedTable);
     }
 

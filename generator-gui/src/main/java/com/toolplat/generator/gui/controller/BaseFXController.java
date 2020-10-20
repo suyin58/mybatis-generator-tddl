@@ -18,11 +18,9 @@ import java.util.Map;
 
 public abstract class BaseFXController implements Initializable {
     private static final Logger _LOG = LoggerFactory.getLogger(BaseFXController.class);
-
+    private static final Map<FXMLPage, SoftReference<? extends BaseFXController>> cacheNodeMap = new HashMap<>();
     private Stage primaryStage;
     private Stage dialogStage;
-
-    private static Map<FXMLPage, SoftReference<? extends BaseFXController>> cacheNodeMap = new HashMap<>();
 
     public BaseFXController loadFXMLPage(String title, FXMLPage fxmlPage, boolean cache) {
         SoftReference<? extends BaseFXController> parentNodeRef = cacheNodeMap.get(fxmlPage);

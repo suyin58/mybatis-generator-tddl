@@ -37,7 +37,7 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
             return true;
         }
         // 方法生成
-        Method selectMethod = JavaElementGeneratorTools.generateMethod(
+        Method method = JavaElementGeneratorTools.generateMethod(
                 METHOD,
                 JavaVisibility.PUBLIC,
                 new FullyQualifiedJavaType("int"),
@@ -46,10 +46,10 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
         );
 
         // 注释生成
-        // commentGenerator.addGeneralMethodComment(selectOneMethod, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         // 构造interface
-        JavaElementGeneratorTools.addMethodToInterface(interfaze, selectMethod);
+        JavaElementGeneratorTools.addMethodToInterface(interfaze, method);
 
         return super.clientGenerated(interfaze, introspectedTable);
     }

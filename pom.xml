@@ -20,7 +20,6 @@
     </properties>
 
     <modules>
-        <module>generator-dao</module>
         <module>generator-gui</module>
         <module>generator-plugin</module>
         <module>generator-test</module>

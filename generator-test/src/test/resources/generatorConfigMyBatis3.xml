@@ -16,7 +16,7 @@
             <property name="targetProject" value="src/main/resources"/>
         </plugin>
 
-        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="com.toolplat.generator.plugins.SerializablePlugin"/>
 
 
         <!--  此处是将Example改名为Criteria 当然 想改成什么都行  -->

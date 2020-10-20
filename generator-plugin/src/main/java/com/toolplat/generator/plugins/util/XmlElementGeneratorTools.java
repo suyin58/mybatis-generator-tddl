@@ -212,9 +212,9 @@ public class XmlElementGeneratorTools {
     }
 
 
-
     /**
      * 生成values Ele
+     *
      * @param columns
      * @param prefix
      * @return
@@ -222,8 +222,10 @@ public class XmlElementGeneratorTools {
     public static List<VisitableElement> generateValues(List<IntrospectedColumn> columns, String prefix) {
         return generateValues(columns, prefix, true);
     }
+
     /**
      * 生成values Ele
+     *
      * @param columns
      * @param prefix
      * @param bracket
@@ -235,6 +237,7 @@ public class XmlElementGeneratorTools {
 
     /**
      * 生成values Ele
+     *
      * @param columns
      * @param prefix
      * @param bracket
@@ -247,6 +250,7 @@ public class XmlElementGeneratorTools {
 
     /**
      * 生成values Selective Ele
+     *
      * @param columns
      * @param prefix
      * @param defaultVal 是否使用默认值，有默认值填充默认值，没有默认值，不写choose
@@ -256,8 +260,10 @@ public class XmlElementGeneratorTools {
                                                            boolean defaultVal) {
         return generateValuesSelective(columns, prefix, true, defaultVal);
     }
+
     /**
      * 生成values Selective Ele
+     *
      * @param columns
      * @param prefix
      * @param bracket
@@ -271,10 +277,11 @@ public class XmlElementGeneratorTools {
 
     /**
      * 通用遍历columns
+     *
      * @param columns
      * @param prefix
      * @param bracket
-     * @param type    1:key,2:value,3:set
+     * @param type       1:key,2:value,3:set
      * @param defaultVal 是否使用默认值，有默认值填充默认值，没有默认值，不写choose
      * @return
      */
@@ -289,22 +296,23 @@ public class XmlElementGeneratorTools {
 
     /**
      * 生成选择列到trim 节点
+     *
      * @param trimEle
      * @param introspectedColumn
      * @param prefix
      * @param type               1:key,2:value,3:set
-     * @param defaultVal 是否使用默认值，有默认值填充默认值，没有默认值，不写choose
+     * @param defaultVal         是否使用默认值，有默认值填充默认值，没有默认值，不写choose
      */
     private static void generateSelectiveToTrimEleTo(XmlElement trimEle, IntrospectedColumn introspectedColumn, String prefix
-            , int type , boolean defaultVal) {
-        if(defaultVal){
+            , int type, boolean defaultVal) {
+        if (defaultVal) {
 
             String defVal = introspectedColumn.getDefaultValue();
-            if(introspectedColumn.isNullable() || null == defVal){
+            if (introspectedColumn.isNullable() || null == defVal) {
                 // 如果没有默认值，那么直接写 x = ?
                 trimEle.addElement(new TextElement(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn,
                         prefix) + ","));
-            }else{
+            } else {
                 /*
           <choose>
             <when test="item.cid != null">
@@ -325,11 +333,11 @@ public class XmlElementGeneratorTools {
                 XmlElement otherwise = new XmlElement("otherwise");
                 eleIf.addElement(otherwise);
 
-                otherwise.addElement(new TextElement(defVal.length() ==0 ? PluginConstants.DEFAULT_VALUE_EMPTY_STRING : defVal));
+                otherwise.addElement(new TextElement(defVal.length() == 0 ? PluginConstants.DEFAULT_VALUE_EMPTY_STRING : defVal));
                 trimEle.addElement(eleIf);
 
             }
-        }else {
+        } else {
             XmlElement eleIf = new XmlElement("if");
             eleIf.addAttribute(new Attribute("test", introspectedColumn.getJavaProperty(prefix) + " != null"));
 
@@ -338,8 +346,10 @@ public class XmlElementGeneratorTools {
             trimEle.addElement(eleIf);
         }
     }
+
     /**
      * 生成
+     *
      * @param element
      * @param introspectedColumn
      * @param prefix
@@ -362,6 +372,7 @@ public class XmlElementGeneratorTools {
 
     /**
      * trim 节点
+     *
      * @param bracket
      * @return
      */

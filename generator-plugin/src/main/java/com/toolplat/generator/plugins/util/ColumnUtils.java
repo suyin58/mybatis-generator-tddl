@@ -8,11 +8,12 @@ import java.util.stream.Collectors;
 
 /**
  * Column 工具类
+ *
  * @author suyin
  */
 public class ColumnUtils {
 
     public static List<IntrospectedColumn> removeIdentityAndGeneratedAlwaysColumns(List<IntrospectedColumn> allColumns) {
-        return  ListUtilities.removeIdentityAndGeneratedAlwaysColumns(allColumns).stream().filter(it -> !it.isAutoIncrement()).collect(Collectors.toList());
+        return ListUtilities.removeIdentityAndGeneratedAlwaysColumns(allColumns).stream().filter(it -> !it.isAutoIncrement()).collect(Collectors.toList());
     }
 }

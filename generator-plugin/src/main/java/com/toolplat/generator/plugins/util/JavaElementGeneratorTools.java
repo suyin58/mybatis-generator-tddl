@@ -41,6 +41,7 @@ public class JavaElementGeneratorTools {
 
     /**
      * 生成静态常量
+     *
      * @param fieldName  常量名称
      * @param javaType   类型
      * @param initString 初始化字段
@@ -59,6 +60,7 @@ public class JavaElementGeneratorTools {
 
     /**
      * 生成属性
+     *
      * @param fieldName  常量名称
      * @param visibility 可见性
      * @param javaType   类型
@@ -76,6 +78,7 @@ public class JavaElementGeneratorTools {
 
     /**
      * 生成方法
+     *
      * @param methodName 方法名
      * @param visibility 可见性
      * @param returnType 返回值类型
@@ -83,7 +86,7 @@ public class JavaElementGeneratorTools {
      * @return
      */
     public static Method generateMethod(String methodName, JavaVisibility visibility,
-                                        FullyQualifiedJavaType returnType, boolean abstrat,Parameter... parameters) {
+                                        FullyQualifiedJavaType returnType, boolean abstrat, Parameter... parameters) {
         List<Parameter> params = new ArrayList<>();
         if (parameters != null) {
             for (Parameter parameter : parameters) {
@@ -91,13 +94,13 @@ public class JavaElementGeneratorTools {
             }
         }
 
-        return generateMethod(methodName, visibility, returnType,abstrat, params);
+        return generateMethod(methodName, visibility, returnType, abstrat, params);
     }
 
 
-    public static  Method generateMethod(String methodName, JavaVisibility visibility,
-                                         FullyQualifiedJavaType returnType,
-                                         boolean abstrat,  List<Parameter> parameters) {
+    public static Method generateMethod(String methodName, JavaVisibility visibility,
+                                        FullyQualifiedJavaType returnType,
+                                        boolean abstrat, List<Parameter> parameters) {
         Method method = new Method(methodName);
         method.setVisibility(visibility);
         method.setReturnType(returnType);
@@ -113,6 +116,7 @@ public class JavaElementGeneratorTools {
 
     /**
      * 生成方法实现体
+     *
      * @param method    方法
      * @param bodyLines 方法实现行
      * @return
@@ -128,6 +132,7 @@ public class JavaElementGeneratorTools {
 
     /**
      * 生成Filed的Set方法
+     *
      * @param field field
      * @return
      */
@@ -144,6 +149,7 @@ public class JavaElementGeneratorTools {
 
     /**
      * 生成Filed的Get方法
+     *
      * @param field field
      * @return
      */
@@ -159,6 +165,7 @@ public class JavaElementGeneratorTools {
 
     /**
      * 获取Model没有BLOBs类时的类型
+     *
      * @param introspectedTable
      * @return
      */
@@ -176,6 +183,7 @@ public class JavaElementGeneratorTools {
 
     /**
      * 获取Model有BLOBs类时的类型
+     *
      * @param introspectedTable
      * @return
      */
@@ -193,6 +201,7 @@ public class JavaElementGeneratorTools {
 
     /**
      * 未interface 增加方法
+     *
      * @param interfaze
      * @param method
      */
@@ -225,8 +234,10 @@ public class JavaElementGeneratorTools {
 
         addMethodWithBestPosition(method, interfaze.getMethods());
     }
+
     /**
      * 获取最佳添加位置
+     *
      * @param method
      * @param methods
      * @return

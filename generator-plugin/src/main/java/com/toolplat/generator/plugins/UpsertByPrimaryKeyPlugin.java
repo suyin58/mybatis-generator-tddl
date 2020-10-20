@@ -15,7 +15,6 @@ import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.VisitableElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.ListUtilities;
-import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,16 +50,16 @@ public class UpsertByPrimaryKeyPlugin extends BasePlugin {
             return true;
         }
         // ====================================== upsert ======================================
-        Method mUpsert = JavaElementGeneratorTools.generateMethod(
+        Method method = JavaElementGeneratorTools.generateMethod(
                 METHOD,
                 JavaVisibility.DEFAULT,
                 FullyQualifiedJavaType.getIntInstance(),
                 true,
                 new Parameter(JavaElementGeneratorTools.getModelTypeWithoutBLOBs(introspectedTable), "record")
         );
-//        commentGenerator.addGeneralMethodComment(mUpsert, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
         // interface 增加方法
-        JavaElementGeneratorTools.addMethodToInterface(interfaze, mUpsert);
+        JavaElementGeneratorTools.addMethodToInterface(interfaze, method);
         return super.clientGenerated(interfaze, introspectedTable);
     }
 

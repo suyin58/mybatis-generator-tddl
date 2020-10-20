@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 /**
  * 管理GeneratorConfig的Controller
- *
+ * <p>
  * Created by Owen on 8/21/16.
  */
 public class GeneratorConfigController extends BaseFXController {

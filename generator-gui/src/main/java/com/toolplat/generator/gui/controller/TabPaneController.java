@@ -1,9 +1,9 @@
 package com.toolplat.generator.gui.controller;
 
+import com.jcraft.jsch.Session;
 import com.toolplat.generator.gui.model.DatabaseConfig;
 import com.toolplat.generator.gui.util.DbUtil;
 import com.toolplat.generator.gui.view.AlertUtil;
-import com.jcraft.jsch.Session;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * @author github.com/slankka on 2019/1/22.
  */
 public class TabPaneController extends BaseFXController {
-    private static Logger logger = LoggerFactory.getLogger(TabPaneController.class);
+    private static final Logger logger = LoggerFactory.getLogger(TabPaneController.class);
 
     @FXML
     private TabPane tabPane;
