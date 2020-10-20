@@ -33,6 +33,7 @@ public class TableTwoUniqueKeyMapperTest extends MapperBaseTest {
 
     @Test
     public void testInsert(){
+        tableTwoUniqueKeyMapper.deleteByUniqueKey(tableTwoUniqueKey.getOrgId(), tableTwoUniqueKey.getCode());
         tableTwoUniqueKeyMapper.insertSelective(tableTwoUniqueKey);
     }
 
@@ -41,7 +42,7 @@ public class TableTwoUniqueKeyMapperTest extends MapperBaseTest {
     public void testSelectByUniqueKey(){
 
         TableTwoUniqueKey mapping = tableTwoUniqueKeyMapper.selectByUniqueKey(tableTwoUniqueKey.getOrgId(),
-                tableTwoUniqueKey.getCid());
+                tableTwoUniqueKey.getCode());
         Assert.assertNotNull(mapping);
     }
 }

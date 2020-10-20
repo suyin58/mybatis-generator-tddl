@@ -2,9 +2,7 @@ package com.dingtalk.demo.dao;
 
 import com.dingtalk.demo.MapperBaseTest;
 import com.dingtalk.demo.domain.TableOneUniqueKey;
-import com.dingtalk.demo.domain.TableOneUniqueKeyCriteria;
-import com.dingtalk.demo.domain.TableWithIdentify;
-import com.dingtalk.demo.domain.TableWithIdentifyCriteria;
+import com.dingtalk.demo.domain.TableOneUniqueKeyExample;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -99,7 +97,7 @@ public class TableOneUniqueKeyMapperTest extends MapperBaseTest {
 
     @Test
     public void testBatchInsert() {
-        tableOneUniqueKeyMapper.deleteByExample(new TableOneUniqueKeyCriteria());
+        tableOneUniqueKeyMapper.deleteByExample(new TableOneUniqueKeyExample());
         int n = tableOneUniqueKeyMapper.batchInsert(batchs);
         Assert.assertTrue(batchNum == n);
     }
@@ -107,7 +105,7 @@ public class TableOneUniqueKeyMapperTest extends MapperBaseTest {
     @Test
     public void testLimit(){
         int limit = 2;
-        TableOneUniqueKeyCriteria crt = new TableOneUniqueKeyCriteria();
+        TableOneUniqueKeyExample crt = new TableOneUniqueKeyExample();
         crt.setStart(0);
         crt.setLimit(limit);
         crt.createCriteria().andIdGreaterThan(2L);

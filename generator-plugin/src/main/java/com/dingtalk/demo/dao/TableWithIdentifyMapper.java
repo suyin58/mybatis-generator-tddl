@@ -1,14 +1,14 @@
 package com.dingtalk.demo.dao;
 
 import com.dingtalk.demo.domain.TableWithIdentify;
-import com.dingtalk.demo.domain.TableWithIdentifyCriteria;
+import com.dingtalk.demo.domain.TableWithIdentifyExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TableWithIdentifyMapper {
-    long countByExample(TableWithIdentifyCriteria example);
+    long countByExample(TableWithIdentifyExample example);
 
-    int deleteByExample(TableWithIdentifyCriteria example);
+    int deleteByExample(TableWithIdentifyExample example);
 
     int deleteByPrimaryKey(Long id);
 
@@ -16,15 +16,15 @@ public interface TableWithIdentifyMapper {
 
     int insertSelective(TableWithIdentify record);
 
-    List<TableWithIdentify> selectByExample(TableWithIdentifyCriteria example);
+    List<TableWithIdentify> selectByExample(TableWithIdentifyExample example);
 
-    TableWithIdentify selectByExampleForUpdate(TableWithIdentifyCriteria example);
+    TableWithIdentify selectByExampleForUpdate(TableWithIdentifyExample example);
 
     TableWithIdentify selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") TableWithIdentify record, @Param("example") TableWithIdentifyCriteria example);
+    int updateByExampleSelective(@Param("record") TableWithIdentify record, @Param("example") TableWithIdentifyExample example);
 
-    int updateByExample(@Param("record") TableWithIdentify record, @Param("example") TableWithIdentifyCriteria example);
+    int updateByExample(@Param("record") TableWithIdentify record, @Param("example") TableWithIdentifyExample example);
 
     int updateByPrimaryKeySelective(TableWithIdentify record);
 
@@ -38,7 +38,7 @@ public interface TableWithIdentifyMapper {
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int batchInsert(@Param("list") List<TableWithIdentify> list);
-
     int upsertByUniqueKey(TableWithIdentify record);
+
+    int batchInsert(@Param("list") List<TableWithIdentify> list);
 }

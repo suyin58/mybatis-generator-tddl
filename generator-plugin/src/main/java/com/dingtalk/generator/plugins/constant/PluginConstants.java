@@ -31,4 +31,10 @@ public class PluginConstants {
      * DEFAULT VALUE EMPTY_STRING
      */
     public static final String DEFAULT_VALUE_EMPTY_STRING = "''";
+
+    /**
+     * 是否使用example
+     */
+    public static final String USE_EXAMPLE = "useExample";
+
 }

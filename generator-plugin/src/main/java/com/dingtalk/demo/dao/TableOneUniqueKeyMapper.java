@@ -1,14 +1,14 @@
 package com.dingtalk.demo.dao;
 
 import com.dingtalk.demo.domain.TableOneUniqueKey;
-import com.dingtalk.demo.domain.TableOneUniqueKeyCriteria;
+import com.dingtalk.demo.domain.TableOneUniqueKeyExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TableOneUniqueKeyMapper {
-    long countByExample(TableOneUniqueKeyCriteria example);
+    long countByExample(TableOneUniqueKeyExample example);
 
-    int deleteByExample(TableOneUniqueKeyCriteria example);
+    int deleteByExample(TableOneUniqueKeyExample example);
 
     int deleteByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
 
@@ -16,15 +16,15 @@ public interface TableOneUniqueKeyMapper {
 
     int insertSelective(TableOneUniqueKey record);
 
-    List<TableOneUniqueKey> selectByExample(TableOneUniqueKeyCriteria example);
+    List<TableOneUniqueKey> selectByExample(TableOneUniqueKeyExample example);
 
-    TableOneUniqueKey selectByExampleForUpdate(TableOneUniqueKeyCriteria example);
+    TableOneUniqueKey selectByExampleForUpdate(TableOneUniqueKeyExample example);
 
     TableOneUniqueKey selectByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int updateByExampleSelective(@Param("record") TableOneUniqueKey record, @Param("example") TableOneUniqueKeyCriteria example);
+    int updateByExampleSelective(@Param("record") TableOneUniqueKey record, @Param("example") TableOneUniqueKeyExample example);
 
-    int updateByExample(@Param("record") TableOneUniqueKey record, @Param("example") TableOneUniqueKeyCriteria example);
+    int updateByExample(@Param("record") TableOneUniqueKey record, @Param("example") TableOneUniqueKeyExample example);
 
     int updateByPrimaryKeySelective(TableOneUniqueKey record);
 
@@ -38,7 +38,7 @@ public interface TableOneUniqueKeyMapper {
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int batchInsert(@Param("list") List<TableOneUniqueKey> list);
-
     int upsertByUniqueKey(TableOneUniqueKey record);
+
+    int batchInsert(@Param("list") List<TableOneUniqueKey> list);
 }

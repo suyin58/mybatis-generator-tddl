@@ -57,6 +57,7 @@ public class CommentGenerator extends DefaultCommentGenerator {
         field.addJavaDocLine(" */");
     }
 
+
     /**
      * remove java mapping coment
      * @param method

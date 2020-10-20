@@ -2,7 +2,7 @@ package com.dingtalk.demo.dao;
 
 import com.dingtalk.demo.MapperBaseTest;
 import com.dingtalk.demo.domain.TableWithIdentify;
-import com.dingtalk.demo.domain.TableWithIdentifyCriteria;
+import com.dingtalk.demo.domain.TableWithIdentifyExample;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +45,7 @@ public class TableWithIdentifyMapperTest extends MapperBaseTest {
 
     @Test
     public void testBatchInsert() {
-        tableWithIdentifyMapper.deleteByExample(new TableWithIdentifyCriteria());
+        tableWithIdentifyMapper.deleteByExample(new TableWithIdentifyExample());
         int n = tableWithIdentifyMapper.batchInsert(batchs);
         Assert.assertTrue(batchNum == n);
     }
