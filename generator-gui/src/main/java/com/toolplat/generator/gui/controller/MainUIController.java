@@ -1,5 +1,6 @@
 package com.toolplat.generator.gui.controller;
 
+import com.jcraft.jsch.Session;
 import com.toolplat.generator.gui.bridge.MybatisGeneratorBridge;
 import com.toolplat.generator.gui.model.DatabaseConfig;
 import com.toolplat.generator.gui.model.GeneratorConfig;
@@ -9,7 +10,6 @@ import com.toolplat.generator.gui.util.DbUtil;
 import com.toolplat.generator.gui.util.MyStringUtils;
 import com.toolplat.generator.gui.view.AlertUtil;
 import com.toolplat.generator.gui.view.UIProgressCallback;
-import com.jcraft.jsch.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -223,10 +223,12 @@ public class MainUIController extends BaseFXController {
                         try {
                             Map<String, List<IntrospectedColumn>> uks = DbUtil.getUniqueKeys(selectedDatabaseConfig, tableName);
                             List<String> ukList =
-                                    uks.entrySet().stream().map(entry -> entry.getKey() +"->" +entry.getValue().stream().map(IntrospectedColumn::getActualColumnName).collect(Collectors.joining(","))).collect(Collectors.toList());
+                                    uks.entrySet().stream().map(entry -> entry.getKey() + "->" + entry.getValue().stream().map(IntrospectedColumn::getActualColumnName).collect(Collectors.joining(","))).collect(Collectors.toList());
                             uniqueName.getItems().clear();
                             uniqueName.getItems().addAll(ukList);
-                            uniqueName.getSelectionModel().selectFirst();
+                            if (null != ukList && ukList.size() == 1) {
+                                uniqueName.getSelectionModel().selectFirst();
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -411,6 +413,7 @@ public class MainUIController extends BaseFXController {
 
         generatorConfig.setUniqueKeyName(uniqueName.getSelectionModel().isEmpty()? null :
                 uniqueName.getValue().toString());
+        generatorConfig.setObservableList(uniqueName.getItems());
         return generatorConfig;
     }
 

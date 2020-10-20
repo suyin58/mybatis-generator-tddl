@@ -5,7 +5,9 @@ import com.toolplat.generator.gui.model.DbType;
 import com.toolplat.generator.gui.model.GeneratorConfig;
 import com.toolplat.generator.gui.util.ConfigHelper;
 import com.toolplat.generator.gui.util.DbUtil;
+import com.toolplat.generator.gui.view.AlertUtil;
 import com.toolplat.generator.plugins.constant.PluginConstants;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.api.ProgressCallback;
@@ -223,9 +225,15 @@ public class MybatisGeneratorBridge {
         }
 
         if (generatorConfig.isUseUniqueKey()) {
+
             if(StringUtils.isNotBlank(generatorConfig.getUniqueKeyName())){
                 String ukName = generatorConfig.getUniqueKeyName().split("->")[0];
                 tableConfig.addProperty(PluginConstants.TABLE_PROPERTY_UNIQUE_KEY, ukName);
+            }else{
+                if(CollectionUtils.isNotEmpty(generatorConfig.getObservableList())){
+                    AlertUtil.showErrorAlert("请选择唯一索引");
+                    return;
+                }
             }
             // 自定义unique key操作插件
             PluginConfiguration selectByUniqueKeyPlugin = new PluginConfiguration();

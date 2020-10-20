@@ -1,44 +1,44 @@
 package com.toolplat.demo.dao;
 
-import com.toolplat.demo.domain.TableOneUniqueKey;
-import com.toolplat.demo.domain.TableOneUniqueKeyExample;
+import com.toolplat.demo.domain.TableOneUniqueKeyPO;
+import com.toolplat.demo.domain.TableOneUniqueKeyPOExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TableOneUniqueKeyMapper {
-    long countByExample(TableOneUniqueKeyExample example);
+    long countByExample(TableOneUniqueKeyPOExample example);
 
-    int deleteByExample(TableOneUniqueKeyExample example);
+    int deleteByExample(TableOneUniqueKeyPOExample example);
 
     int deleteByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int insert(TableOneUniqueKey record);
+    int insert(TableOneUniqueKeyPO record);
 
-    int insertSelective(TableOneUniqueKey record);
+    int insertSelective(TableOneUniqueKeyPO record);
 
-    List<TableOneUniqueKey> selectByExample(TableOneUniqueKeyExample example);
+    List<TableOneUniqueKeyPO> selectByExample(TableOneUniqueKeyPOExample example);
 
-    TableOneUniqueKey selectByExampleForUpdate(TableOneUniqueKeyExample example);
+    TableOneUniqueKeyPO selectByExampleForUpdate(TableOneUniqueKeyPOExample example);
 
-    TableOneUniqueKey selectByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
+    TableOneUniqueKeyPO selectByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int updateByExampleSelective(@Param("record") TableOneUniqueKey record, @Param("example") TableOneUniqueKeyExample example);
+    int updateByExampleSelective(@Param("record") TableOneUniqueKeyPO record, @Param("example") TableOneUniqueKeyPOExample example);
 
-    int updateByExample(@Param("record") TableOneUniqueKey record, @Param("example") TableOneUniqueKeyExample example);
+    int updateByExample(@Param("record") TableOneUniqueKeyPO record, @Param("example") TableOneUniqueKeyPOExample example);
 
-    int updateByPrimaryKeySelective(TableOneUniqueKey record);
+    int updateByPrimaryKeySelective(TableOneUniqueKeyPO record);
 
-    int updateByPrimaryKey(TableOneUniqueKey record);
+    int updateByPrimaryKey(TableOneUniqueKeyPO record);
 
-    TableOneUniqueKey selectByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
+    TableOneUniqueKeyPO selectByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    TableOneUniqueKey selectByUniqueKeyForUpdate(@Param("orgId") Long orgId, @Param("code") String code);
+    TableOneUniqueKeyPO selectByUniqueKeyForUpdate(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int updateByUniqueKeySelective(TableOneUniqueKey record);
+    int updateByUniqueKeySelective(TableOneUniqueKeyPO record);
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int upsertByUniqueKey(TableOneUniqueKey record);
+    int upsertByUniqueKey(TableOneUniqueKeyPO record);
 
-    int batchInsert(@Param("list") List<TableOneUniqueKey> list);
+    int batchInsert(@Param("list") List<TableOneUniqueKeyPO> list);
 }

@@ -1,5 +1,6 @@
 package com.toolplat.generator.gui.model;
 
+import javafx.collections.ObservableList;
 import lombok.Data;
 
 /**
@@ -60,6 +61,8 @@ public class GeneratorConfig {
 	private boolean useUniqueKey;
 	private String uniqueKeyName;
 	private boolean usePrimaryKey;
+
+	private ObservableList observableList;
 
 
 
