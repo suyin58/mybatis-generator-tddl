@@ -23,7 +23,7 @@ public class BatchInsertPlugin extends BasePlugin {
     /**
      * 方法名
      */
-    public static final String METHOD_BATCH_INSERT = "batchInsert";
+    public static final String METHOD = "batchInsert";
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
 
@@ -31,7 +31,7 @@ public class BatchInsertPlugin extends BasePlugin {
         FullyQualifiedJavaType listType = FullyQualifiedJavaType.getNewListInstance();
         listType.addTypeArgument(introspectedTable.getRules().calculateAllFieldsClass());
         Method mBatchInsert = JavaElementGeneratorTools.generateMethod(
-                METHOD_BATCH_INSERT,
+                METHOD,
                 JavaVisibility.DEFAULT,
                 FullyQualifiedJavaType.getIntInstance(),
                 true,
@@ -48,7 +48,7 @@ public class BatchInsertPlugin extends BasePlugin {
     public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
         // 1. batchInsert
         XmlElement answer = new XmlElement("insert");
-        answer.addAttribute(new Attribute("id", METHOD_BATCH_INSERT));
+        answer.addAttribute(new Attribute("id", METHOD));
         // 参数类型
         answer.addAttribute(new Attribute("parameterType", "map"));
         // 添加注释(!!!必须添加注释，overwrite覆盖生成时，@see XmlFileMergerJaxp.isGeneratedNode会去判断注释中是否存在OLD_ELEMENT_TAGS中的一点，例子：@mbg.generated)

@@ -26,7 +26,7 @@ public class DeleteByUniqueKeyPlugin extends BasePlugin {
     /**
      * Mapper.java 方法名
      */
-    public static final String METHOD_DELETE_BY_UNIQUE_KEY = "deleteByUniqueKey";
+    public static final String METHOD = "deleteByUniqueKey";
 
 
     @Override
@@ -37,7 +37,7 @@ public class DeleteByUniqueKeyPlugin extends BasePlugin {
         }
         // 方法生成
         Method selectMethod = JavaElementGeneratorTools.generateMethod(
-                METHOD_DELETE_BY_UNIQUE_KEY,
+                METHOD,
                 JavaVisibility.PUBLIC,
                 new FullyQualifiedJavaType("int"),
                 true,
@@ -70,7 +70,7 @@ public class DeleteByUniqueKeyPlugin extends BasePlugin {
         XmlElement answer = new XmlElement("delete"); //$NON-NLS-1$
 
         answer.addAttribute(new Attribute(
-                "id", METHOD_DELETE_BY_UNIQUE_KEY)); //$NON-NLS-1$
+                "id", METHOD)); //$NON-NLS-1$
 
         // 添加参数类型
         String parameterType;

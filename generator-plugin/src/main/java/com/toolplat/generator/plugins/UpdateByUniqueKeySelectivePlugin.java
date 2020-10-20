@@ -27,7 +27,7 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
     /**
      * Mapper.java 方法名
      */
-    public static final String METHOD_UPDATE_BY_UNIQUE_KEY_SELECTIVE = "updateByUniqueKeySelective";
+    public static final String METHOD = "updateByUniqueKeySelective";
 
 
     @Override
@@ -38,7 +38,7 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
         }
         // 方法生成
         Method selectMethod = JavaElementGeneratorTools.generateMethod(
-                METHOD_UPDATE_BY_UNIQUE_KEY_SELECTIVE,
+                METHOD,
                 JavaVisibility.PUBLIC,
                 new FullyQualifiedJavaType("int"),
                 true,
@@ -74,7 +74,7 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
         XmlElement answer = new XmlElement("update"); //$NON-NLS-1$
         context.getCommentGenerator().addComment(answer);
         answer.addAttribute(new Attribute(
-                "id", METHOD_UPDATE_BY_UNIQUE_KEY_SELECTIVE)); //$NON-NLS-1$
+                "id", METHOD)); //$NON-NLS-1$
 
         // 增加update标签的parameter
         String parameterType;

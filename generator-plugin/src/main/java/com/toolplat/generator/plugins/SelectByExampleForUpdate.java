@@ -24,12 +24,7 @@ public class SelectByExampleForUpdate extends BasePlugin {
     /**
      * Mapper.java 方法名
      */
-    public static final String METHOD_SELECT_BY_EXAMPLE_FOR_UPDATE = "selectByExampleForUpdate";
-
-    /**
-     * Mapper.java 方法名
-     */
-    public static final String METHOD_SELECT_BY_EXAMPLE_WITH_BLOBS_FOR_UPDATE = "selectByExampleWithBlobsForUpdate";
+    public static final String METHOD = "selectByExampleForUpdate";
 
 
     @Override
@@ -41,7 +36,7 @@ public class SelectByExampleForUpdate extends BasePlugin {
 
         // 方法生成
         Method selectMethod = JavaElementGeneratorTools.generateMethod(
-                METHOD_SELECT_BY_EXAMPLE_FOR_UPDATE,
+                METHOD,
                 JavaVisibility.PUBLIC,
                 JavaElementGeneratorTools.getModelTypeWithBLOBs(introspectedTable),
                 true,
@@ -70,7 +65,7 @@ public class SelectByExampleForUpdate extends BasePlugin {
         XmlElement answer = new XmlElement("select"); //$NON-NLS-1$
 
         answer.addAttribute(new Attribute("id", //$NON-NLS-1$
-                METHOD_SELECT_BY_EXAMPLE_FOR_UPDATE));
+                METHOD));
         // 添加返回类型
         if (introspectedTable.hasBLOBColumns()) {
             answer.addAttribute(new Attribute("resultMap", //$NON-NLS-1$

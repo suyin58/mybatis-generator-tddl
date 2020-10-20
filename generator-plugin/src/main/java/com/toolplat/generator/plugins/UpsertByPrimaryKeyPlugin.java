@@ -1,19 +1,3 @@
-/*
- * Copyright (c) 2017.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.toolplat.generator.plugins;
 
 import com.toolplat.generator.plugins.util.JavaElementGeneratorTools;
@@ -31,17 +15,13 @@ import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.VisitableElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.ListUtilities;
+import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * ---------------------------------------------------------------------------
- * 存在即更新插件
- * ---------------------------------------------------------------------------
- */
-public class UpsertByUniqueKeyPlugin extends BasePlugin {
-    public static final String METHOD = "upsertByUniqueKey";  // 方法名
+public class UpsertByPrimaryKeyPlugin extends BasePlugin {
+    public static final String METHOD = "upsertByPrimaryKey";  // 方法名
 
     /**
      * {@inheritDoc}
@@ -66,8 +46,8 @@ public class UpsertByUniqueKeyPlugin extends BasePlugin {
      */
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
-        if(null == uniqueKey || uniqueKey.size() == 0){
-            System.err.println("generator UpsertByUniqueKeyPlugin break ,cause by no unique can be found");
+        if (null == introspectedTable.getPrimaryKeyColumns() || introspectedTable.getPrimaryKeyColumns().size() == 0) {
+            System.err.println("generator UpsertByPrimaryKeyPlugin break ,cause by no unique can be found");
             return true;
         }
         // ====================================== upsert ======================================
@@ -93,7 +73,7 @@ public class UpsertByUniqueKeyPlugin extends BasePlugin {
      */
     @Override
     public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
-        if(null == uniqueKey || uniqueKey.size() == 0){
+        if (null == introspectedTable.getPrimaryKeyColumns() || introspectedTable.getPrimaryKeyColumns().size() == 0) {
             return true;
         }
         this.generateXmlElement(document, introspectedTable);
@@ -138,15 +118,13 @@ public class UpsertByUniqueKeyPlugin extends BasePlugin {
 
         insertEle.addElement(new TextElement("on duplicate key update "));
         // set
-        List<IntrospectedColumn> nonUniqueKeyColumns = new ArrayList<>(introspectedTable.getAllColumns());
-        nonUniqueKeyColumns.removeAll(uniqueKey);
-        for (VisitableElement where :XmlElementGeneratorTools.generateSets(nonUniqueKeyColumns,null, false)) {
+        List<IntrospectedColumn> nonPrimaryKeyColumns = new ArrayList<>(introspectedTable.getAllColumns());
+        nonPrimaryKeyColumns.removeAll(introspectedTable.getPrimaryKeyColumns());
+        for (VisitableElement where :XmlElementGeneratorTools.generateSets(nonPrimaryKeyColumns,null, false)) {
             insertEle.addElement(where);
         }
 
 
         document.getRootElement().addElement(insertEle);
     }
-
-
 }

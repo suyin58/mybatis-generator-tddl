@@ -251,6 +251,14 @@ public class MainUIController extends BaseFXController {
 		overrideXML.setTooltip(new Tooltip("重新生成时把原XML文件覆盖，否则是追加"));
         forUpdateCheckBox.setTooltip(new Tooltip("在Select语句中增加for update后缀"));
         useLombokPlugin.setTooltip(new Tooltip("实体类使用Lombok @Data简化代码"));
+        useUniqueKey.setTooltip(new Tooltip("是否生成UniqueKey的代码插件:\n " +
+                "selectByUniqueKey\n updateByUniqueKey\n " +
+                "deleteByUniqueKey\n upsertByUniqueKey\n " +
+                "SelectByUniqueKeyForUpdate "));
+        usePrimaryKey.setTooltip(new Tooltip("是否生成UniqueKey的代码插件:\n " +
+                "selectByPrimaryKey\n updateByPrimaryKey\n " +
+                "deleteByPrimaryKey\n updateByPrimaryKeySelective\n " +
+                "selectByPrimaryKeyForUpdate\n updateByPrimaryKeySelective "));
 	}
 
     void loadLeftDBTree() {

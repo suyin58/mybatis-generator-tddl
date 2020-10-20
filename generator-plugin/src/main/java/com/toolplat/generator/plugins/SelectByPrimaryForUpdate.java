@@ -17,20 +17,16 @@ import java.util.stream.Collectors;
 
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
-/**
- * select by uniqueKey, should assign unique key name
- * @author suyin
- */
-public class SelectByUniqueKeyForUpdatePlugin extends BasePlugin {
+public class SelectByPrimaryForUpdate extends BasePlugin {
 
     /**
      * Mapper.java 方法名
      */
-    public static final String METHOD = "selectByUniqueKeyForUpdate";
+    public static final String METHOD = "selectByPrimaryKeyForUpdate";
 
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
-        if(null == uniqueKey || uniqueKey.size() == 0){
+        if (null == introspectedTable.getPrimaryKeyColumns() || introspectedTable.getPrimaryKeyColumns().size() == 0) {
             System.err.println("generator SelectByUniqueKeyForUpdatePlugin break ,cause by no unique can be found");
             return true;
         }
@@ -40,8 +36,8 @@ public class SelectByUniqueKeyForUpdatePlugin extends BasePlugin {
                 JavaVisibility.PUBLIC,
                 JavaElementGeneratorTools.getModelTypeWithBLOBs(introspectedTable),
                 true,
-                uniqueKey.stream().map(it -> new Parameter(it.getFullyQualifiedJavaType(),it.getJavaProperty(),
-                        "@Param(\""+it.getJavaProperty()+"\")"
+                uniqueKey.stream().map(it -> new Parameter(it.getFullyQualifiedJavaType(), it.getJavaProperty(),
+                        "@Param(\"" + it.getJavaProperty() + "\")"
                 )).collect(Collectors.toList())
         );
 
@@ -54,15 +50,16 @@ public class SelectByUniqueKeyForUpdatePlugin extends BasePlugin {
 
     /**
      * 生成XML文件
-     * @see  org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.SelectByPrimaryKeyElementGenerator
+     *
      * @param document
      * @param introspectedTable
      * @return
+     * @see org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.SelectByPrimaryKeyElementGenerator
      */
     @Override
     public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
 
-        if(null == uniqueKey || uniqueKey.size() == 0){
+        if (null == introspectedTable.getPrimaryKeyColumns() || introspectedTable.getPrimaryKeyColumns().size() == 0) {
             return true;
         }
         // 生成查询语句
@@ -113,7 +110,7 @@ public class SelectByUniqueKeyForUpdatePlugin extends BasePlugin {
         sb.append(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
         // 添加where语句
-        for (VisitableElement where :XmlElementGeneratorTools.generateWheres(uniqueKey)) {
+        for (VisitableElement where : XmlElementGeneratorTools.generateWheres(introspectedTable.getPrimaryKeyColumns())) {
             answer.addElement(where);
         }
 

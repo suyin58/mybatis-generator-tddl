@@ -22,6 +22,8 @@ public interface TableOneUniqueKeyMapper {
 
     TableOneUniqueKeyPO selectByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
 
+    TableOneUniqueKeyPO selectByPrimaryKeyForUpdate(@Param("orgId") Long orgId, @Param("code") String code);
+
     int updateByExampleSelective(@Param("record") TableOneUniqueKeyPO record, @Param("example") TableOneUniqueKeyPOExample example);
 
     int updateByExample(@Param("record") TableOneUniqueKeyPO record, @Param("example") TableOneUniqueKeyPOExample example);
@@ -38,7 +40,9 @@ public interface TableOneUniqueKeyMapper {
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int upsertByUniqueKey(TableOneUniqueKeyPO record);
-
     int batchInsert(@Param("list") List<TableOneUniqueKeyPO> list);
+
+    int upsertByPrimaryKey(TableOneUniqueKeyPO record);
+
+    int upsertByUniqueKey(TableOneUniqueKeyPO record);
 }

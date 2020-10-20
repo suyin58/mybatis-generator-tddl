@@ -70,6 +70,17 @@ public class TableOneUniqueKeyMapperTest extends MapperBaseTest {
                 tableOneUniqueKey.getCode());
         Assert.assertNotNull(mapping);
     }
+    @Test
+    public void testSelectByPrimaryKeyForUpdate(){
+
+        int n = tableOneUniqueKeyMapper.deleteByPrimaryKey(tableOneUniqueKey.getOrgId(),
+                tableOneUniqueKey.getCode());
+        tableOneUniqueKeyMapper.insertSelective(tableOneUniqueKey);
+
+        TableOneUniqueKeyPO mapping = tableOneUniqueKeyMapper.selectByPrimaryKeyForUpdate(tableOneUniqueKey.getOrgId(),
+                tableOneUniqueKey.getCode());
+        Assert.assertNotNull(mapping);
+    }
 
     @Test
     public void testUpdateByUnikeyKey(){
@@ -114,7 +125,7 @@ public class TableOneUniqueKeyMapperTest extends MapperBaseTest {
     }
 
     @Test
-    public void testUpSertNotExist(){
+    public void testUpSertByUniqueKeyNotExist(){
         tableOneUniqueKeyMapper.deleteByUniqueKey(tableOneUniqueKey.getOrgId(), tableOneUniqueKey.getCode());
         tableOneUniqueKeyMapper.upsertByUniqueKey(tableOneUniqueKey);
         TableOneUniqueKeyPO res = tableOneUniqueKeyMapper.selectByUniqueKey(tableOneUniqueKey.getOrgId(),
@@ -123,7 +134,7 @@ public class TableOneUniqueKeyMapperTest extends MapperBaseTest {
 
     }
     @Test
-    public void testUpSertExist(){
+    public void testUpSertByUniqueKeyExist(){
 
         String upVal = "UpCid";
         tableOneUniqueKeyMapper.deleteByUniqueKey(tableOneUniqueKey.getOrgId(), tableOneUniqueKey.getCode());
@@ -134,6 +145,32 @@ public class TableOneUniqueKeyMapperTest extends MapperBaseTest {
         tableOneUniqueKey.setCid(upVal);
         tableOneUniqueKeyMapper.upsertByUniqueKey(tableOneUniqueKey);
         TableOneUniqueKeyPO resUpdate = tableOneUniqueKeyMapper.selectByUniqueKey(tableOneUniqueKey.getOrgId(),
+                tableOneUniqueKey.getCode());
+        Assert.assertTrue(upVal.equals(resUpdate.getCid()));
+
+    }
+
+    @Test
+    public void testUpSertByPrimaryKeyNotExist(){
+        tableOneUniqueKeyMapper.deleteByPrimaryKey(tableOneUniqueKey.getOrgId(), tableOneUniqueKey.getCode());
+        tableOneUniqueKeyMapper.upsertByPrimaryKey(tableOneUniqueKey);
+        TableOneUniqueKeyPO res = tableOneUniqueKeyMapper.selectByPrimaryKey(tableOneUniqueKey.getOrgId(),
+                tableOneUniqueKey.getCode());
+        Assert.assertTrue(tableOneUniqueKey.getCid().equals(res.getCid()));
+
+    }
+    @Test
+    public void testUpSertByPrimaryKeyExist(){
+
+        String upVal = "UpCid";
+        tableOneUniqueKeyMapper.deleteByPrimaryKey(tableOneUniqueKey.getOrgId(), tableOneUniqueKey.getCode());
+        tableOneUniqueKeyMapper.upsertByPrimaryKey(tableOneUniqueKey);
+        TableOneUniqueKeyPO resInsert = tableOneUniqueKeyMapper.selectByPrimaryKey(tableOneUniqueKey.getOrgId(),
+                tableOneUniqueKey.getCode());
+        Assert.assertTrue(tableOneUniqueKey.getCid().equals(resInsert.getCid()));
+        tableOneUniqueKey.setCid(upVal);
+        tableOneUniqueKeyMapper.upsertByPrimaryKey(tableOneUniqueKey);
+        TableOneUniqueKeyPO resUpdate = tableOneUniqueKeyMapper.selectByPrimaryKey(tableOneUniqueKey.getOrgId(),
                 tableOneUniqueKey.getCode());
         Assert.assertTrue(upVal.equals(resUpdate.getCid()));
 

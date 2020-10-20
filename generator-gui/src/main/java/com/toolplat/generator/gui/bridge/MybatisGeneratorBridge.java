@@ -249,10 +249,6 @@ public class MybatisGeneratorBridge {
             deleteByUniqueKeyPlugin.setConfigurationType("com.toolplat.generator.plugins.DeleteByUniqueKeyPlugin");
             context.addPluginConfiguration(deleteByUniqueKeyPlugin);
 
-
-            PluginConfiguration upsertByUniqueKeyPlugin = new PluginConfiguration();
-            upsertByUniqueKeyPlugin.setConfigurationType("com.toolplat.generator.plugins.UpsertByUniqueKeyPlugin");
-            context.addPluginConfiguration(upsertByUniqueKeyPlugin);
         }
         // 批量插件
         PluginConfiguration batchInsertPlugin = new PluginConfiguration();
@@ -276,6 +272,11 @@ public class MybatisGeneratorBridge {
             if (DbType.MySQL.name().equals(dbType)|| DbType.MySQL_8.name().equals(dbType)
                     || DbType.PostgreSQL.name().equals(dbType)) {
                 // for update
+
+                PluginConfiguration selectByPrimaryForUpdate = new PluginConfiguration();
+                selectByPrimaryForUpdate.setConfigurationType("com.toolplat.generator.plugins.SelectByPrimaryForUpdate");
+                context.addPluginConfiguration(selectByPrimaryForUpdate);
+
                 PluginConfiguration selectByExampleForUpdate = new PluginConfiguration();
                 selectByExampleForUpdate.setConfigurationType("com.toolplat.generator.plugins.SelectByExampleForUpdate");
                 context.addPluginConfiguration(selectByExampleForUpdate);
@@ -286,6 +287,17 @@ public class MybatisGeneratorBridge {
 
             }
         }
+
+        // upsert插件
+
+
+        PluginConfiguration upsertByPrimaryKeyPlugin = new PluginConfiguration();
+        upsertByPrimaryKeyPlugin.setConfigurationType("com.toolplat.generator.plugins.UpsertByPrimaryKeyPlugin");
+        context.addPluginConfiguration(upsertByPrimaryKeyPlugin);
+
+        PluginConfiguration upsertByUniqueKeyPlugin = new PluginConfiguration();
+        upsertByUniqueKeyPlugin.setConfigurationType("com.toolplat.generator.plugins.UpsertByUniqueKeyPlugin");
+        context.addPluginConfiguration(upsertByUniqueKeyPlugin);
 
 
         context.setTargetRuntime("MyBatis3");

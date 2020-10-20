@@ -42,12 +42,17 @@
         </plugin>
         <plugin type="com.toolplat.generator.plugins.DeleteByUniqueKeyPlugin">
         </plugin>
+        <!--存在即更新插件-->
         <plugin type="com.toolplat.generator.plugins.UpsertByUniqueKeyPlugin">
+        </plugin>
+        <plugin type="com.toolplat.generator.plugins.UpsertByPrimaryKeyPlugin">
         </plugin>
         <!--批量插入插件-->
         <plugin type="com.toolplat.generator.plugins.BatchInsertPlugin">
         </plugin>
         <!--for update 插件-->
+        <plugin type="com.toolplat.generator.plugins.SelectByPrimaryForUpdate">
+        </plugin>
         <plugin type="com.toolplat.generator.plugins.SelectByExampleForUpdate">
         </plugin>
         <plugin type="com.toolplat.generator.plugins.SelectByUniqueKeyForUpdatePlugin">

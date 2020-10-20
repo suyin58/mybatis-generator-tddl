@@ -22,6 +22,8 @@ public interface TableWithIdentifyMapper {
 
     TableWithIdentifyPO selectByPrimaryKey(Long id);
 
+    TableWithIdentifyPO selectByPrimaryKeyForUpdate(@Param("orgId") Long orgId, @Param("code") String code);
+
     int updateByExampleSelective(@Param("record") TableWithIdentifyPO record, @Param("example") TableWithIdentifyPOExample example);
 
     int updateByExample(@Param("record") TableWithIdentifyPO record, @Param("example") TableWithIdentifyPOExample example);
@@ -38,7 +40,9 @@ public interface TableWithIdentifyMapper {
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("code") String code);
 
-    int upsertByUniqueKey(TableWithIdentifyPO record);
-
     int batchInsert(@Param("list") List<TableWithIdentifyPO> list);
+
+    int upsertByPrimaryKey(TableWithIdentifyPO record);
+
+    int upsertByUniqueKey(TableWithIdentifyPO record);
 }

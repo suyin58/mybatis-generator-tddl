@@ -26,7 +26,7 @@ public class SelectByUniqueKeyPlugin extends BasePlugin {
     /**
      * Mapper.java 方法名
      */
-    public static final String METHOD_SELECT_BY_UNIQUE_KEY = "selectByUniqueKey";
+    public static final String METHOD = "selectByUniqueKey";
 
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
@@ -36,7 +36,7 @@ public class SelectByUniqueKeyPlugin extends BasePlugin {
         }
         // 方法生成
         Method selectMethod = JavaElementGeneratorTools.generateMethod(
-                METHOD_SELECT_BY_UNIQUE_KEY,
+                METHOD,
                 JavaVisibility.PUBLIC,
                 JavaElementGeneratorTools.getModelTypeWithBLOBs(introspectedTable),
                 true,
@@ -70,7 +70,7 @@ public class SelectByUniqueKeyPlugin extends BasePlugin {
         XmlElement answer = new XmlElement("select");
         context.getCommentGenerator().addComment(answer);
         // 添加ID
-        answer.addAttribute(new Attribute("id", METHOD_SELECT_BY_UNIQUE_KEY));
+        answer.addAttribute(new Attribute("id", METHOD));
         // 添加返回类型
         if (introspectedTable.hasBLOBColumns()) {
             answer.addAttribute(new Attribute("resultMap", //$NON-NLS-1$

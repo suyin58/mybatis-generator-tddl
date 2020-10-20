@@ -22,6 +22,8 @@ public interface TableTwoUniqueKeyMapper {
 
     TableTwoUniqueKeyPO selectByPrimaryKey(@Param("orgId") Long orgId, @Param("code") String code);
 
+    TableTwoUniqueKeyPO selectByPrimaryKeyForUpdate(@Param("orgId") Long orgId, @Param("cid") String cid);
+
     int updateByExampleSelective(@Param("record") TableTwoUniqueKeyPO record, @Param("example") TableTwoUniqueKeyPOExample example);
 
     int updateByExample(@Param("record") TableTwoUniqueKeyPO record, @Param("example") TableTwoUniqueKeyPOExample example);
@@ -38,7 +40,9 @@ public interface TableTwoUniqueKeyMapper {
 
     int deleteByUniqueKey(@Param("orgId") Long orgId, @Param("cid") String cid);
 
-    int upsertByUniqueKey(TableTwoUniqueKeyPO record);
-
     int batchInsert(@Param("list") List<TableTwoUniqueKeyPO> list);
+
+    int upsertByPrimaryKey(TableTwoUniqueKeyPO record);
+
+    int upsertByUniqueKey(TableTwoUniqueKeyPO record);
 }

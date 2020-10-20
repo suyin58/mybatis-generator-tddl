@@ -101,7 +101,8 @@
                                             </GridPane.margin>
                                         </TextField>
                                         <Label text="Java实体类名" GridPane.rowIndex="1"/>
-                                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1"
+                                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1"
+                                              GridPane.columnSpan="5" GridPane.rowIndex="1"
                                               GridPane.valignment="CENTER">
                                             <children>
                                                 <TextField fx:id="domainObjectNameField" prefHeight="27.0" prefWidth="154.0" promptText="Person"
@@ -119,6 +120,11 @@
                                                         <String fx:value="btn-default"/>
                                                     </styleClass>
                                                 </Button>
+                                                <Label text="     Java实体类后缀" GridPane.rowIndex="1"/>
+                                                <TextField fx:id="domainObjectNameSuffix" prefHeight="27.0"
+                                                           prefWidth="54.0" promptText="PO"
+                                                           GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                </TextField>
                                             </children>
                                             <GridPane.margin>
                                                 <Insets left="5.0"/>
