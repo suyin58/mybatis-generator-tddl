@@ -10,6 +10,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.internal.util.ClassloaderUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -238,6 +240,41 @@ public class DbUtil {
 		} catch (Exception e) {
 			_LOG.error("load driver error", e);
 			throw new DbDriverLoadingException("找不到"+dbType.getConnectorJarFile()+"驱动");
+		}
+	}
+
+	public static Map<String, List<IntrospectedColumn>> getUniqueKeys(DatabaseConfig dbConfig, String tableName) throws Exception {
+		String url = getConnectionUrlWithSchema(dbConfig);
+		_LOG.info("getTableColumns, connection url: {}", url);
+		Session sshSession = getSSHSession(dbConfig);
+		engagePortForwarding(sshSession, dbConfig);
+		Connection conn = getConnection(dbConfig);
+		try {
+
+			DatabaseMetaData metaData = conn.getMetaData();
+			Map<String, List<IntrospectedColumn>> uks = new HashMap<>(5);
+			ResultSet rs = metaData.getIndexInfo(dbConfig.getSchema(), null, tableName, true, false);
+			while (rs.next()) {
+				// @see https://docs.oracle.com/javase/6/docs/api/java/sql/DatabaseMetaData.html#getColumns(java.lang.String,%20java.lang.String,%20java.lang.String,%20java.lang.String)
+				String indexName = rs.getString("INDEX_NAME");
+				if("PRIMARY".equals(indexName)){
+					continue;
+				}
+				String colName = rs.getString("COLUMN_NAME");
+				IntrospectedColumn column =  new IntrospectedColumn();
+				column.setActualColumnName(colName);
+				if(uks.containsKey(indexName)){
+					uks.get(indexName).add(column);
+				}else{
+					List<IntrospectedColumn> cols = new ArrayList<>();
+					cols.add(column);
+					uks.put(indexName, cols);
+				}
+			}
+			return uks;
+		} finally {
+			conn.close();
+			shutdownPortForwarding(sshSession);
 		}
 	}
 }

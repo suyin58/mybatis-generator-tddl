@@ -277,15 +277,15 @@
                                                                   mnemonicParsing="false"
                                                                   selected="true"
                                                                   text="使用UniqueKey"/>
-                                                        <TextField fx:id="uniqueName" minWidth="100.0"
-                                                                   promptText="UniqueKey名字"
-                                                                   text="" />
-<!--                                                        <ChoiceBox fx:id="uniqueName" prefHeight="23.0" prefWidth="71.0">-->
-<!--                                                            <items>-->
-<!--                                                                <FXCollections fx:factory="observableArrayList">-->
-<!--                                                                </FXCollections>-->
-<!--                                                            </items>-->
-<!--                                                        </ChoiceBox>-->
+<!--                                                        <TextField fx:id="uniqueName" minWidth="100.0"-->
+<!--                                                                   promptText="UniqueKey名字"-->
+<!--                                                                   text="" />-->
+                                                        <ChoiceBox fx:id="uniqueName" prefHeight="23.0" prefWidth="71.0">
+                                                            <items>
+                                                                <FXCollections fx:factory="observableArrayList">
+                                                                </FXCollections>
+                                                            </items>
+                                                        </ChoiceBox>
                                                     </children>
                                                 </HBox>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="18.0">

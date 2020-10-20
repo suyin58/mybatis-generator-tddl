@@ -223,7 +223,10 @@ public class MybatisGeneratorBridge {
         }
 
         if (generatorConfig.isUseUniqueKey()) {
-            tableConfig.addProperty(PluginConstants.TABLE_PROPERTY_UNIQUE_KEY,generatorConfig.getUniqueKeyName());
+            if(StringUtils.isNotBlank(generatorConfig.getUniqueKeyName())){
+                String ukName = generatorConfig.getUniqueKeyName().split("->")[0];
+                tableConfig.addProperty(PluginConstants.TABLE_PROPERTY_UNIQUE_KEY, ukName);
+            }
             // 自定义unique key操作插件
             PluginConfiguration selectByUniqueKeyPlugin = new PluginConfiguration();
             selectByUniqueKeyPlugin.setConfigurationType("com.dingtalk.generator.plugins.SelectByUniqueKeyPlugin");

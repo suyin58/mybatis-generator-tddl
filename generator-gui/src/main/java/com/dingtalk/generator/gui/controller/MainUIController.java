@@ -36,6 +36,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.config.ColumnOverride;
 import org.mybatis.generator.config.IgnoredColumn;
 import org.slf4j.Logger;
@@ -47,8 +48,10 @@ import java.net.URL;
 import java.sql.SQLRecoverableException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class MainUIController extends BaseFXController {
 
@@ -98,7 +101,7 @@ public class MainUIController extends BaseFXController {
     @FXML
     private CheckBox useUniqueKey;
     @FXML
-    private TextField uniqueName;
+    private ChoiceBox uniqueName;
     @FXML
     private TreeView<String> leftDBTree;
     // Current selected databaseConfig
@@ -216,6 +219,17 @@ public class MainUIController extends BaseFXController {
                         tableNameField.setText(tableName);
                         domainObjectNameField.setText(MyStringUtils.dbStringToCamelStyle(tableName).concat("PO"));
                         mapperName.setText(MyStringUtils.dbStringToCamelStyle(tableName).concat("Mapper"));
+                        // 获取UK索引
+                        try {
+                            Map<String, List<IntrospectedColumn>> uks = DbUtil.getUniqueKeys(selectedDatabaseConfig, tableName);
+                            List<String> ukList =
+                                    uks.entrySet().stream().map(entry -> entry.getKey() +"->" +entry.getValue().stream().map(IntrospectedColumn::getActualColumnName).collect(Collectors.joining(","))).collect(Collectors.toList());
+                            uniqueName.getItems().clear();
+                            uniqueName.getItems().addAll(ukList);
+                            uniqueName.getSelectionModel().selectFirst();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
@@ -394,7 +408,9 @@ public class MainUIController extends BaseFXController {
         generatorConfig.setUseExample(useExample.isSelected());
         generatorConfig.setUsePrimaryKey(usePrimaryKey.isSelected());
         generatorConfig.setUseUniqueKey(useUniqueKey.isSelected());
-        generatorConfig.setUniqueKeyName(uniqueName.getText());
+
+        generatorConfig.setUniqueKeyName(uniqueName.getSelectionModel().isEmpty()? null :
+                uniqueName.getValue().toString());
         return generatorConfig;
     }
 
@@ -419,7 +435,7 @@ public class MainUIController extends BaseFXController {
         useExample.setSelected(generatorConfig.isUseExample());
         usePrimaryKey.setSelected(generatorConfig.isUsePrimaryKey());
         useUniqueKey.setSelected(generatorConfig.isUseUniqueKey());
-        uniqueName.setText(generatorConfig.getUniqueKeyName());
+        uniqueName.getSelectionModel().select(generatorConfig.getUniqueKeyName());
     }
 
     @FXML
