@@ -11,10 +11,17 @@
 
     <artifactId>generator-test</artifactId>
     <dependencies>
+
         <dependency>
             <groupId>org.dingtalk</groupId>
             <artifactId>generator-plugin</artifactId>
             <version>1.0.2-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!--db start-->

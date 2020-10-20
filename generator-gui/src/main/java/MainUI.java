@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 /**
  * 这是本软件的主入口,要运行本软件请直接运行本类就可以了,不用传入任何参数
+ * 初始代码源于：https://github.com/zouzg/mybatis-generator-gui
  * 本软件要求jkd版本大于1.8.0.40
  */
 public class MainUI extends Application {
@@ -44,7 +45,6 @@ public class MainUI extends Application {
         {
            System.out.println(ma.group());
         } 
-		
 		launch(args);
 	}
 
