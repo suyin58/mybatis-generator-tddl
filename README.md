@@ -9,3 +9,9 @@
 4. upsert 存在即更新插件 
 5. 分页插件
 6. 批量插入插件
+  ![](https://raw.githubusercontent.com/suyin58/mybatis-generator-tddl/branch/generator-test/src/test/resources/image/mapper.jpg)
+- 执行方法
+1. 界面启动
+ - 执行generator-gui/src/main/java/MainUI.java的main方法
+2. 单元测试启动
+ - 执行generator-test/src/test/.../generator/MyBatisGeneratorTest.java
