@@ -331,3 +331,5 @@
 [DEBUG] [11:35:50.755] [JavaFX Application Thread] [] org.mybatis.generator.internal.db.DatabaseIntrospector.getColumns:559 --> Found column "org_id", data type -5, in table "temp_utf8..table_with_identify"
 [DEBUG] [11:35:50.755] [JavaFX Application Thread] [] org.mybatis.generator.internal.db.DatabaseIntrospector.getColumns:559 --> Found column "cid", data type 12, in table "temp_utf8..table_with_identify"
 [DEBUG] [11:35:50.756] [JavaFX Application Thread] [] org.mybatis.generator.internal.db.DatabaseIntrospector.getColumns:559 --> Found column "code", data type 12, in table "temp_utf8..table_with_identify"
+[INFO] [14:32:15.053] [JavaFX Application Thread] [] com.toolplat.generator.gui.util.ConnectionManager.getConnection:20 --> database FilePath :/Users/suyin/Documents/MySpace/mybatis-generator-tddl/./config/sqlite3.db
+[INFO] [14:32:15.054] [JavaFX Application Thread] [] com.toolplat.generator.gui.util.ConfigHelper.loadGeneratorConfigs:216 --> sql: SELECT * FROM generator_config

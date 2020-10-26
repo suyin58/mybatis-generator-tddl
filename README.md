@@ -1,4 +1,4 @@
 # mybatis-generator-tddl
 
-- 提供更加丰富的
+- 基于mybatis generator自动生成ORM映射文件的一款界面工具，
 - 
