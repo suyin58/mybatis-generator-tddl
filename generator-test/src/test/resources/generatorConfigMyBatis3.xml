@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!--defaultModelType="flat": 不生成复合主键对象-->
+    <context id="generatorTables" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!--是否支持合并-->
+        <property name="mergeable" value="false"/>
+
+        <plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">
+            <property name="fileName" value="mybatis-config.xml"/>
+            <property name="targetPackage" value="/"/>
+            <property name="targetProject" value="src/main/resources"/>
+        </plugin>
+
+        <plugin type="com.toolplat.generator.plugins.SerializablePlugin"/>
+
+
+        <!--  此处是将Example改名为Criteria 当然 想改成什么都行  -->
+<!--        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">-->
+<!--            <property name="searchString" value="Example"/>-->
+<!--            <property name="replaceString" value="Criteria"/>-->
+<!--        </plugin>-->
+
+        <!-- 自定义插件开始 -->
+        <!-- lombok 插件 -->
+        <plugin type="com.toolplat.generator.plugins.LombokPlugin">
+            <property name="data" value="true"/>
+            <property name="builder" value="true"/>
+            <property name="allArgsConstructor" value="true"/>
+            <property name="noArgsConstructor" value="true"/>
+            <property name="toString" value="true"/>
+        </plugin>
+
+        <!-- 自定义unique key操作插件 -->
+        <plugin type="com.toolplat.generator.plugins.SelectByUniqueKeyPlugin">
+        </plugin>
+        <plugin type="com.toolplat.generator.plugins.UpdateByUniqueKeySelectivePlugin">
+        </plugin>
+        <plugin type="com.toolplat.generator.plugins.DeleteByUniqueKeyPlugin">
+        </plugin>
+        <!--存在即更新插件-->
+        <plugin type="com.toolplat.generator.plugins.UpsertByUniqueKeyPlugin">
+        </plugin>
+        <plugin type="com.toolplat.generator.plugins.UpsertByPrimaryKeyPlugin">
+        </plugin>
+        <!--批量插入插件-->
+        <plugin type="com.toolplat.generator.plugins.BatchInsertPlugin">
+        </plugin>
+        <!--for update 插件-->
+        <plugin type="com.toolplat.generator.plugins.SelectByPrimaryForUpdate">
+        </plugin>
+        <plugin type="com.toolplat.generator.plugins.SelectByExampleForUpdate">
+        </plugin>
+        <plugin type="com.toolplat.generator.plugins.SelectByUniqueKeyForUpdatePlugin">
+        </plugin>
+        <!--分页插件-->
+        <plugin type="com.toolplat.generator.plugins.LimitPlugin">
+        </plugin>
+        <!-- 自定义插件结束 -->
+
+        <!--自定义注释开始 -->
+        <!-- commentGenerator 去除自动生成的注释  -->
+        <commentGenerator type="com.toolplat.generator.plugins.CommentGenerator">
+            <property name="author" value="szy" />
+        </commentGenerator>
+        <!--自定义注释结束 -->
+
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/temp_utf8"
+                        userId="root"
+                        password="root">
+            <property name="useInformationSchema" value="true"/>
+        </jdbcConnection>
+        <!--
+        默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
+        true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal
+        -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true" />
+        </javaTypeResolver>
+
+        <!-- javaModelGenerator是模型的生成信息，这里将指定这些Java model类的生成路径； -->
+        <javaModelGenerator targetPackage="com.toolplat.demo.domain"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- sqlMapGenerator是mybatis 的sqlMapper XML文件的生成信息，包括生成路径等；   先生成xml，在生成java-->
+        <sqlMapGenerator targetPackage="com.toolplat.demo.dao"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- javaClientGenerator是应用接口的生成信息； -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.toolplat.demo.dao"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+
+        <!-- table是用户指定的被生成相关信息的表，它必须在指定的jdbc连接中已经被建立。可以多个 -->
+        <table tableName="table_one_unique_key" domainObjectName="TableOneUniqueKeyPO"  >
+<!--               enableInsert="true"-->
+<!--               enableSelectByPrimaryKey="false" enableUpdateByPrimaryKey="false"-->
+<!--               enableDeleteByPrimaryKey="false" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false" enableUpdateByExample="false"-->
+        </table>
+        <table tableName="table_two_unique_key" domainObjectName="TableTwoUniqueKeyPO">
+            <property name="uniqueKey" value="uk_org_cid"/>
+        </table>
+        <table tableName="table_with_identify" domainObjectName="TableWithIdentifyPO"></table>
+
+
+    </context>
+</generatorConfiguration>

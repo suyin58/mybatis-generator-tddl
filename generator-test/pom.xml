@@ -4,17 +4,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>mybatis-generator-tddl</artifactId>
-        <groupId>com.dingtalk.mybatis</groupId>
-        <version>1.0.1-SNAPSHOT</version>
+        <groupId>com.toolplat.mybatis</groupId>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>generator-test</artifactId>
     <dependencies>
+
         <dependency>
-            <groupId>org.dingtalk</groupId>
+            <groupId>org.toolplat</groupId>
             <artifactId>generator-plugin</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.2-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!--db start-->
@@ -53,9 +60,9 @@
             <version>4.3.6.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>org.dingtalk</groupId>
+            <groupId>org.toolplat</groupId>
             <artifactId>generator-plugin</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.2-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <!-- springframe end -->
