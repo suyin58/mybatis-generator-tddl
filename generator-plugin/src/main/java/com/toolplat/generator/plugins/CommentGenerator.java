@@ -13,7 +13,8 @@ import java.util.Optional;
 import java.util.Properties;
 
 /**
- * 注释生成
+ * table comment -> Class comment, 将表的注释，放到类的注释上面。
+ * column comment -> field comment, 将字段的注释，放到属性的注释上面
  * @author suyin
  */
 public class CommentGenerator extends DefaultCommentGenerator {
@@ -60,15 +61,6 @@ public class CommentGenerator extends DefaultCommentGenerator {
         field.addJavaDocLine("/**");
         field.addJavaDocLine(" * " + remark);
         field.addJavaDocLine(" */");
-    }
-
-
-    /**
-     * @param a
-     * @return
-     */
-    public String test(String a) {
-        return "";
     }
 
     /**

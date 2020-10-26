@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
+/**
+ * for update by primary key, 根据主键乐观锁
+ */
 public class SelectByPrimaryForUpdate extends BasePlugin {
 
     /**

@@ -19,6 +19,10 @@ import org.mybatis.generator.codegen.mybatis3.ListUtilities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * update when exist by primary key ,存在即更新，根据主键进行唯一性判断
+ * @author suyin
+ */
 public class UpsertByPrimaryKeyPlugin extends BasePlugin {
     public static final String METHOD = "upsertByPrimaryKey";  // 方法名
 

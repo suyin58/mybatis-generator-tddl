@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
 /**
- * select by uniqueKey, should assign unique key name
+ * select by uniqueKey plugin, 唯一索引数据库乐观锁
  * @author suyin
  */
 public class SelectByUniqueKeyForUpdatePlugin extends BasePlugin {

@@ -16,7 +16,7 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import java.util.List;
 
 /**
- * 分页插件
+ * page plugin ,分页插件
  * @author suyin
  */
 public class LimitPlugin extends  BasePlugin {

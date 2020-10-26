@@ -36,9 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ---------------------------------------------------------------------------
- * 存在即更新插件
- * ---------------------------------------------------------------------------
+ * update when exist by unique key ,存在即更新，根据唯一索引进行唯一性判断
+ * @author suyin
  */
 public class UpsertByUniqueKeyPlugin extends BasePlugin {
     public static final String METHOD = "upsertByUniqueKey";  // 方法名

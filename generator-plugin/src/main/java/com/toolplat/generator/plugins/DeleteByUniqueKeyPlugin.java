@@ -17,7 +17,8 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import java.util.stream.Collectors;
 
 /**
- * select by uniqueKey, should assign unique key name
+ * delete by uniqueKey, 根据唯一索引删除数据
+ *
  * @author suyin
  */
 public class DeleteByUniqueKeyPlugin extends BasePlugin {
