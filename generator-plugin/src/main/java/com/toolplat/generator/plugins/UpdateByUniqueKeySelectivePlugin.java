@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * update by uniqueKey, should assign unique key name
+ * update by uniqueKey, 根据唯一索引更新数据
  * @author suyin
  */
 public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {

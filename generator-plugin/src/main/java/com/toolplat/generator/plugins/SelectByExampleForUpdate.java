@@ -17,7 +17,7 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
 /**
- *
+ * for update by example, 按条件乐观锁
  * @author suyin
  */
 public class SelectByExampleForUpdate extends BasePlugin {
