@@ -8,3 +8,4 @@
 3. 唯一索引插件，提供基于unique key 的select、update、insert操作，便于分库分表情况下，不是使用id子增长主键的sql查询
 4. upsert 存在即更新插件 
 5. 分页插件
+6. 批量插入插件

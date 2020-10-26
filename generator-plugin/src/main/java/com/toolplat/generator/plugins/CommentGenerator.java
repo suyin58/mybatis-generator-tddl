@@ -79,18 +79,18 @@ public class CommentGenerator extends DefaultCommentGenerator {
      */
     @Override
     public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
-        method.addJavaDocLine("/**");
-        method.addJavaDocLine(" * auto method:" + method.getName());
-        if (method.getParameters() != null && method.getParameters().size() > 0) {
-            for (Parameter param : method.getParameters()) {
-                method.addJavaDocLine(" * @param " + param.getName());
-            }
-        }
-        Optional<FullyQualifiedJavaType> ret = method.getReturnType();
-        if (ret.isPresent()) {
-            method.addJavaDocLine(" * @return " + ret.get().getShortName());
-        }
-        method.addJavaDocLine(" */");
+//        method.addJavaDocLine("/**");
+//        method.addJavaDocLine(" * auto method:" + method.getName());
+//        if (method.getParameters() != null && method.getParameters().size() > 0) {
+//            for (Parameter param : method.getParameters()) {
+//                method.addJavaDocLine(" * @param " + param.getName());
+//            }
+//        }
+//        Optional<FullyQualifiedJavaType> ret = method.getReturnType();
+//        if (ret.isPresent()) {
+//            method.addJavaDocLine(" * @return " + ret.get().getShortName());
+//        }
+//        method.addJavaDocLine(" */");
     }
 
 }
