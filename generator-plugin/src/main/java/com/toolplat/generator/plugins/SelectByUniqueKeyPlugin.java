@@ -1,5 +1,6 @@
 package com.toolplat.generator.plugins;
 
+import com.toolplat.generator.plugins.delegate.MyRules;
 import com.toolplat.generator.plugins.util.JavaElementGeneratorTools;
 import com.toolplat.generator.plugins.util.XmlElementGeneratorTools;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -27,6 +28,13 @@ public class SelectByUniqueKeyPlugin extends BasePlugin {
      * Mapper.java 方法名
      */
     public static final String METHOD = "selectByUniqueKey";
+
+    @Override
+    public void initialized(IntrospectedTable introspectedTable) {
+        super.initialized(introspectedTable);
+        MyRules myRules = new MyRules(introspectedTable.getRules());
+        introspectedTable.setRules(myRules);
+    }
 
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {

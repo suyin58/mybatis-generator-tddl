@@ -17,7 +17,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class TableOneUniqueKeyPO implements Serializable {
-    private static final long serialVersionUID = 71731146100952L;
+    private static final long serialVersionUID = 8937293018281L;
 
     /**
      * 多群主键

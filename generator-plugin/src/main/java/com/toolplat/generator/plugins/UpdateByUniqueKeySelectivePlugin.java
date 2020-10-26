@@ -1,5 +1,6 @@
 package com.toolplat.generator.plugins;
 
+import com.toolplat.generator.plugins.delegate.MyRules;
 import com.toolplat.generator.plugins.util.JavaElementGeneratorTools;
 import com.toolplat.generator.plugins.util.XmlElementGeneratorTools;
 import org.mybatis.generator.api.IntrospectedColumn;
@@ -29,6 +30,12 @@ public class UpdateByUniqueKeySelectivePlugin extends BasePlugin {
      */
     public static final String METHOD = "updateByUniqueKeySelective";
 
+    @Override
+    public void initialized(IntrospectedTable introspectedTable) {
+        super.initialized(introspectedTable);
+        MyRules myRules = new MyRules(introspectedTable.getRules());
+        introspectedTable.setRules(myRules);
+    }
 
     @Override
     public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
