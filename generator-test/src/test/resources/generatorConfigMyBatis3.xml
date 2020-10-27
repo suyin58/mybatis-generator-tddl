@@ -78,7 +78,7 @@
         默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
         true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal
         -->
-        <javaTypeResolver>
+        <javaTypeResolver type="com.toolplat.generator.plugins.JavaTypeResolverMybatisDefaultImpl">
             <property name="forceBigDecimals" value="true" />
         </javaTypeResolver>
 
