@@ -16,8 +16,6 @@
             <property name="targetProject" value="src/main/resources"/>
         </plugin>
 
-        <plugin type="com.toolplat.generator.plugins.SerializablePlugin"/>
-
 
         <!--  此处是将Example改名为Criteria 当然 想改成什么都行  -->
 <!--        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">-->
@@ -26,6 +24,8 @@
 <!--        </plugin>-->
 
         <!-- 自定义插件开始 -->
+        <!--序列化插件-->
+        <plugin type="com.toolplat.generator.plugins.SerializablePlugin"/>
         <!-- lombok 插件 -->
         <plugin type="com.toolplat.generator.plugins.LombokPlugin">
             <property name="data" value="true"/>
@@ -34,7 +34,6 @@
             <property name="noArgsConstructor" value="true"/>
             <property name="toString" value="true"/>
         </plugin>
-
         <!-- 自定义unique key操作插件 -->
         <plugin type="com.toolplat.generator.plugins.SelectByUniqueKeyPlugin">
         </plugin>
@@ -61,7 +60,6 @@
         <plugin type="com.toolplat.generator.plugins.LimitPlugin">
         </plugin>
         <!-- 自定义插件结束 -->
-
         <!--自定义注释开始 -->
         <!-- commentGenerator 去除自动生成的注释  -->
         <commentGenerator type="com.toolplat.generator.plugins.CommentGenerator">
@@ -80,7 +78,7 @@
         默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
         true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal
         -->
-        <javaTypeResolver>
+        <javaTypeResolver type="com.toolplat.generator.plugins.JavaTypeResolverMybatisDefaultImpl">
             <property name="forceBigDecimals" value="true" />
         </javaTypeResolver>
 

@@ -10,6 +10,10 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * @see org.mybatis.generator.plugins.SerializablePlugin
+ * @author suyin
+ */
 public class SerializablePlugin extends PluginAdapter {
 
     private final FullyQualifiedJavaType serializable;
@@ -18,6 +22,7 @@ public class SerializablePlugin extends PluginAdapter {
     private boolean suppressJavaInterface;
 
     public SerializablePlugin() {
+
         super();
         serializable = new FullyQualifiedJavaType("java.io.Serializable"); //$NON-NLS-1$
         gwtSerializable = new FullyQualifiedJavaType("com.google.gwt.user.client.rpc.IsSerializable"); //$NON-NLS-1$
